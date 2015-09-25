@@ -63,8 +63,8 @@ public class Fish {
 			feature = "không hung dữ";
 		else
 			feature = "hung dữ";
-		str += "Fish name: " + speciesName + ", Min pH: " + minpH + ", Max pH: " + maxpH + ", Salinities: "
-				+ salinities.toUpperCase() + ", Temperature: " + temperature + ", Feature: " + feature;
+		str += "Fish name: " + speciesName + "| Min pH: " + minpH + "| Max pH: " + maxpH + "| Salinities: "
+				+ salinities.toUpperCase() + "| Temperature: " + temperature + "| Feature: " + feature;
 		return str;
 	}
 

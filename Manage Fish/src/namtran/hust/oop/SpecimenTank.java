@@ -4,11 +4,8 @@ import java.util.Scanner;
 
 public class SpecimenTank extends FishTank {
 	private final String NAME = "Specimen Tank";
-	@SuppressWarnings("unused")
 	private float salinitiesTank;
-	@SuppressWarnings("unused")
 	private String temperatureTank;
-	@SuppressWarnings("unused")
 	private float phTank;
 	private Fish fish;
 	private static Scanner sc;
@@ -39,16 +36,22 @@ public class SpecimenTank extends FishTank {
 
 	@Override
 	public void display() {
+		System.out.println(NAME);
 		if (fish == null)
-			System.out.println("No fish in this tank!");
+			System.out.println("\tNo fish in this tank!");
 		else
-			System.out.println(fish);
+			System.out.println("\t" + fish);
 	}
 
 	@Override
 	public boolean checkFishSuitability(Fish fish) {
 		if (this.fish == null)
-			return true;
+			if (fish.checkEnviroment(phTank, salinitiesTank, temperatureTank))
+				return true;
+			else {
+				System.out.println("Can't add fish in tank!");
+				return false;
+			}
 		else {
 			System.out.println("Full tank, can't add!");
 			return false;
@@ -67,10 +70,9 @@ public class SpecimenTank extends FishTank {
 			fish = null;
 			key = true;
 		}
-		if(!key)
+		if (!key)
 			System.out.println("No species fish like that!");
 	}
-	
 
 	@Override
 	public Fish getFishToMove() {
@@ -79,10 +81,12 @@ public class SpecimenTank extends FishTank {
 
 	@Override
 	public boolean checkFishInTank(String name) {
-		if(fish.getSpeciesName().equalsIgnoreCase(name))
+		if (fish.getSpeciesName().equalsIgnoreCase(name))
 			return true;
-		else
+		else {
+			System.out.println("'" + name + "'" + " don't have in tank!");
 			return false;
+		}
 	}
 
 	@Override
