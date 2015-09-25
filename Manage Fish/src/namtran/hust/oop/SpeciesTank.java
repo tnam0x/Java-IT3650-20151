@@ -40,11 +40,12 @@ public class SpeciesTank extends FishTank {
 
 	@Override
 	public void display() {
+		System.out.println(NAME);
 		if (listFish.isEmpty())
-			System.out.println("No any fish in this tank!");
+			System.out.println("\tNo any fish in this tank!");
 		else
 			for (int i = 0; i < listFish.size(); i++)
-				System.out.println(listFish.get(i));
+				System.out.println("\t" + listFish.get(i));
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class SpeciesTank extends FishTank {
 			}
 		}
 		if (!result)
-			System.out.println(name + " don't have in tank!");
+			System.out.println("'" + name + "'" + " don't have in tank!");
 		return result;
 	}
 

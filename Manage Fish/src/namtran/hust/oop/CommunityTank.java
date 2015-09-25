@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommunityTank extends FishTank {
-	private final static String NAME = "Community Tank";
-	@SuppressWarnings("unused")
+	private final String NAME = "Community Tank";
 	private String sizeTank;
 	private int quota;
 	private float salinitiesTank;
@@ -20,11 +19,11 @@ public class CommunityTank extends FishTank {
 		this.sizeTank = sizeTank;
 
 		// quota
-		if ("small".equalsIgnoreCase(sizeTank))
+		if ("small tank".equalsIgnoreCase(sizeTank))
 			this.quota = 10;
-		else if ("medium".equalsIgnoreCase(sizeTank))
+		else if ("medium tank".equalsIgnoreCase(sizeTank))
 			this.quota = 40;
-		else if ("big".equalsIgnoreCase(sizeTank))
+		else if ("big tank".equalsIgnoreCase(sizeTank))
 			this.quota = 80;
 
 		// nồng độ muối
@@ -52,11 +51,13 @@ public class CommunityTank extends FishTank {
 
 	@Override
 	public void display() {
+		System.out.println(NAME + " - " + sizeTank);
 		if (listFish.isEmpty())
-			System.out.println("No any fish in this tank!");
+			System.out.println("\tNo any fish in this tank!");
 		else
-			for (int i = 0; i < listFish.size(); i++)
-				System.out.println(listFish.get(i));
+			for (int i = 0; i < listFish.size(); i++) {
+				System.out.println("\t" + listFish.get(i));
+			}
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class CommunityTank extends FishTank {
 
 	@Override
 	public void addFish(Fish fish) {
-			this.listFish.add(fish);
+		this.listFish.add(fish);
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class CommunityTank extends FishTank {
 			}
 		}
 		if (!result)
-			System.out.println(name + " don't have in tank!");
+			System.out.println("'" + name + "'" + " don't have in tank!");
 		return result;
 	}
 
@@ -108,6 +109,6 @@ public class CommunityTank extends FishTank {
 
 	@Override
 	public String getNAME() {
-		return NAME;
+		return NAME + " - " + sizeTank;
 	}
 }

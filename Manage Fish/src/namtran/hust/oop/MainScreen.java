@@ -14,7 +14,7 @@ public class MainScreen {
 
 	public static void main(String[] args) {
 		MainScreen ms = new MainScreen();
-
+		// begin
 		while (true) {
 			System.out.println("*-----Menu-----*".toUpperCase());
 			System.out.println("a. Thêm một bể cá");
@@ -67,21 +67,21 @@ public class MainScreen {
 					sc = new Scanner(System.in);
 					int chooseSize = sc.nextInt();
 					if (chooseSize == 1) {
-						communityTank = new CommunityTank("small");
+						communityTank = new CommunityTank("Small Tank");
 						listTank.add(communityTank);
 						break;
 					} else if (chooseSize == 2) {
-						communityTank = new CommunityTank("medium");
+						communityTank = new CommunityTank("Medium Tank");
 						listTank.add(communityTank);
 						break;
 					} else if (chooseSize == 3) {
-						communityTank = new CommunityTank("big");
+						communityTank = new CommunityTank("Big Tank");
 						listTank.add(communityTank);
 						break;
 					} else if (chooseSize == 4)
 						break;
 					else
-						System.out.println("Nhập sai, vui lòng nhập lại!");
+						System.out.println("Wrong, try again");
 				}
 
 			// create Species Tank
@@ -94,11 +94,12 @@ public class MainScreen {
 			else if (chooseTank == 3) {
 				specimenTank = new SpecimenTank();
 				listTank.add(specimenTank);
-			}
+			} else
+				System.out.println("Wrong, try again");
 		}
 	}
 
-	// add a fish in a tank
+	// add fish intank
 	public void addFishInTank() {
 		System.out.println("*-----add a fish in tank-----*".toUpperCase());
 		if (listTank.isEmpty())
@@ -111,7 +112,7 @@ public class MainScreen {
 			sc = new Scanner(System.in);
 			int choose = sc.nextInt();
 			boolean key = false;
-			for (int i = 0; i < listTank.size(); i++) {
+			for (int i = 0; i < listTank.size(); i++)
 				if (choose == (i + 1)) {
 					key = true;
 					if (listTank.get(i).checkFishSuitability(fish)) {
@@ -120,13 +121,13 @@ public class MainScreen {
 						break;
 					}
 				}
-			}
+			// not found tank
 			if (!key)
 				System.out.println("Wrong... try again!");
 		}
 	}
 
-	// remove a fish out tank
+	// remove fish out tank
 	public void removeFishOutTank() {
 		System.out.println("*-----remove a fish out tank-----*".toUpperCase());
 		if (listTank.isEmpty())
@@ -142,22 +143,22 @@ public class MainScreen {
 			sc = new Scanner(System.in);
 			int choose = sc.nextInt();
 			boolean key = false;
-			for (int i = 0; i < listTank.size(); i++) {
-				if (choose == (i + 1))
+			for (int i = 0; i < listTank.size(); i++)
+				if (choose == (i + 1)) {
+					key = true;
 					if (listTank.get(i).checkFishInTank(speciesName)) {
 						listTank.get(i).removeFish(speciesName);
 						System.out.println("Removed!");
-						key = true;
 						break;
 					}
-			}
-			// if not remove
+				}
+			// not found tank
 			if (!key)
 				System.out.println("Wrong... try again!");
 		}
 	}
 
-	// move a in other tank
+	// move fish in other tank
 	public void moveFishInOtherTank() {
 		System.out.println("*-----move a fish in other tank-----*".toUpperCase());
 		// enter species name need move
@@ -193,20 +194,23 @@ public class MainScreen {
 									System.out.println("Moved!");
 									break;
 								}
-								if (!key_in)
-									System.out.println("Wrong... try again!");
 							}
-						if (!key_out)
+						// not found tank
+						if (!key_in)
 							System.out.println("Wrong... try again!");
+						// break while chosen
 						break;
 					}
 				}
+			// not found tank
+			if (!key_out)
+				System.out.println("Wrong... try again!");
 		}
 	}
 
 	// display all fish in tank
 	public void displayFishInTank() {
-		System.out.println("*-----display fish in all tank-----*0".toUpperCase());
+		System.out.println("*-----display fish in all tank-----*".toUpperCase());
 		if (listTank.isEmpty())
 			System.out.println("No any tank to display fish, first of all please add tank then add fish!");
 		else
