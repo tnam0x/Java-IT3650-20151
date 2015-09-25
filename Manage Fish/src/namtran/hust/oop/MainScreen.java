@@ -32,7 +32,7 @@ public class MainScreen {
 				ms.addFishInTank();
 			else if (choose.equalsIgnoreCase("c"))
 				ms.removeFishOutTank();
-			else if(choose.equalsIgnoreCase("d"))
+			else if (choose.equalsIgnoreCase("d"))
 				ms.moveFishInOtherTank();
 			else if (choose.equalsIgnoreCase("e"))
 				ms.displayFishInTank();
@@ -101,94 +101,118 @@ public class MainScreen {
 	// add a fish in a tank
 	public void addFishInTank() {
 		System.out.println("*-----add a fish in tank-----*".toUpperCase());
-		fish = new Fish();
-		displayTank();
-		// choose a tank
-		System.out.print("Choose a tank to add fish: ");
-		sc = new Scanner(System.in);
-		int choose = sc.nextInt();
-		boolean key = false;
-		for (int i = 0; i < listTank.size(); i++) {
-			if (choose == (i + 1))
-				if (listTank.get(i).checkFishSuitability(fish)) {
-					listTank.get(i).addFish(fish);
+		if (listTank.isEmpty())
+			System.out.println("No any tank to add fish, first of all please add tank!");
+		else {
+			fish = new Fish();
+			displayTank();
+			// choose a tank
+			System.out.print("Choose a tank to add fish: ");
+			sc = new Scanner(System.in);
+			int choose = sc.nextInt();
+			boolean key = false;
+			for (int i = 0; i < listTank.size(); i++) {
+				if (choose == (i + 1)) {
 					key = true;
-					break;
+					if (listTank.get(i).checkFishSuitability(fish)) {
+						listTank.get(i).addFish(fish);
+						System.out.println("Added!");
+						break;
+					}
 				}
+			}
+			if (!key)
+				System.out.println("Wrong... try again!");
 		}
-		if (!key)
-			System.out.println("No any fish added!");
 	}
 
 	// remove a fish out tank
 	public void removeFishOutTank() {
 		System.out.println("*-----remove a fish out tank-----*".toUpperCase());
-		// enter species name want to remove
-		System.out.print("Enter species name: ");
-		sc = new Scanner(System.in);
-		String speciesName = sc.nextLine();
-		displayTank();
-		// choose a tank
-		System.out.print("Choose a tank to remove fish: ");
-		sc = new Scanner(System.in);
-		int choose = sc.nextInt();
-		boolean key = false;
-		for (int i = 0; i < listTank.size(); i++) {
-			if (choose == (i + 1)) {
-				listTank.get(i).removeFish(speciesName);
-				key = true;
-				break;
+		if (listTank.isEmpty())
+			System.out.println("No any tank to remove fish, first of all please add tank then add fish!");
+		else {
+			// enter species name want to remove
+			System.out.print("Enter species name: ");
+			sc = new Scanner(System.in);
+			String speciesName = sc.nextLine();
+			displayTank();
+			// choose a tank
+			System.out.print("Choose a tank to remove fish: ");
+			sc = new Scanner(System.in);
+			int choose = sc.nextInt();
+			boolean key = false;
+			for (int i = 0; i < listTank.size(); i++) {
+				if (choose == (i + 1))
+					if (listTank.get(i).checkFishInTank(speciesName)) {
+						listTank.get(i).removeFish(speciesName);
+						System.out.println("Removed!");
+						key = true;
+						break;
+					}
 			}
+			// if not remove
+			if (!key)
+				System.out.println("Wrong... try again!");
 		}
-		// if not remove
-		if (!key)
-			System.out.println("No any fish removed!");
 	}
 
 	// move a in other tank
 	public void moveFishInOtherTank() {
 		System.out.println("*-----move a fish in other tank-----*".toUpperCase());
 		// enter species name need move
-		System.out.print("Enter species name: ");
-		sc = new Scanner(System.in);
-		String speciesName = sc.nextLine();
-		displayTank();
-		// choose a tank
-		System.out.print("Choose tank you want put fish out: ");
-		sc = new Scanner(System.in);
-		int choose = sc.nextInt();
-		boolean key_out = false;
-		for (int i = 0; i < listTank.size(); i++)
-			if (choose == (i + 1)) {
-				if (listTank.get(i).checkFishInTank(speciesName)) {
+		if (listTank.isEmpty())
+			System.out.println("No any tank to move fish, first of all please add tank then add fish!");
+		else {
+			System.out.print("Enter species name: ");
+			sc = new Scanner(System.in);
+			String speciesName = sc.nextLine();
+			displayTank();
+			// choose a tank
+			System.out.print("Choose tank you want put fish out: ");
+			sc = new Scanner(System.in);
+			int choose = sc.nextInt();
+			boolean key_out = false;
+			for (int i = 0; i < listTank.size(); i++)
+				if (choose == (i + 1)) {
 					key_out = true;
-					fish = listTank.get(i).getFish();
-					// choose a tank
-					System.out.print("Choose tank you want put fish in: ");
-					sc = new Scanner(System.in);
-					choose = sc.nextInt();
-					boolean key_in = false;
-					for (int j = 0; j < listTank.size(); j++)
-						if (choose == (j + 1)) {
-							listTank.get(j).checkFishSuitability(fish);
-							listTank.get(j).addFish(fish);
-							key_in = true;
-							break;
-						}
-					if (!key_in)
-						System.out.println("Wrong... try again!");
+					if (listTank.get(i).checkFishInTank(speciesName)) {
+						fish = listTank.get(i).getFishToMove();
+
+						// choose a tank
+						System.out.print("Choose tank you want put fish in: ");
+						sc = new Scanner(System.in);
+						choose = sc.nextInt();
+						boolean key_in = false;
+						for (int j = 0; j < listTank.size(); j++)
+							if (choose == (j + 1)) {
+								key_in = true;
+								if (listTank.get(j).checkFishSuitability(fish)) {
+									listTank.get(j).addFish(fish);
+									listTank.get(i).removeFish(speciesName);
+									System.out.println("Moved!");
+									break;
+								}
+								if (!key_in)
+									System.out.println("Wrong... try again!");
+							}
+						if (!key_out)
+							System.out.println("Wrong... try again!");
+						break;
+					}
 				}
-				if (!key_out)
-					System.out.println("Wrong... try again!");
-				break;
-			}
+		}
 	}
 
 	// display all fish in tank
 	public void displayFishInTank() {
-		for (int i = 0; i < listTank.size(); i++) {
-			listTank.get(i).display();
-		}
+		System.out.println("*-----display fish in all tank-----*0".toUpperCase());
+		if (listTank.isEmpty())
+			System.out.println("No any tank to display fish, first of all please add tank then add fish!");
+		else
+			for (int i = 0; i < listTank.size(); i++) {
+				listTank.get(i).display();
+			}
 	}
 
 	// display tank while add fish

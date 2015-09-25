@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 public class SpecimenTank extends FishTank {
 	private final String NAME = "Specimen Tank";
+	@SuppressWarnings("unused")
 	private float salinitiesTank;
+	@SuppressWarnings("unused")
 	private String temperatureTank;
+	@SuppressWarnings("unused")
 	private float phTank;
 	private Fish fish;
 	private static Scanner sc;
@@ -31,6 +34,7 @@ public class SpecimenTank extends FishTank {
 		System.out.print("Enter pH of tank (1-14): ");
 		sc = new Scanner(System.in);
 		phTank = sc.nextFloat();
+		System.out.println("Created!");
 	}
 
 	@Override
@@ -43,38 +47,42 @@ public class SpecimenTank extends FishTank {
 
 	@Override
 	public boolean checkFishSuitability(Fish fish) {
-		boolean result = false;
-		if (fish == null)
-			result = true;
-		if (!result)
-			System.out.println("Full tank!");
-		return result;
+		if (this.fish == null)
+			return true;
+		else {
+			System.out.println("Full tank, can't add!");
+			return false;
+		}
 	}
 
 	@Override
 	public void addFish(Fish fish) {
 		this.fish = fish;
-		System.out.println("Added!");
 	}
 
 	@Override
 	public void removeFish(String name) {
+		boolean key = false;
 		if (fish.getSpeciesName().equalsIgnoreCase(name)) {
 			fish = null;
-			System.out.println("Removed!");
+			key = true;
 		}
+		if(!key)
+			System.out.println("No species fish like that!");
+	}
+	
+
+	@Override
+	public Fish getFishToMove() {
+		return fish;
 	}
 
-	public float getSalinitiesTank() {
-		return salinitiesTank;
-	}
-
-	public String getTemperatureTank() {
-		return temperatureTank;
-	}
-
-	public float getPhTank() {
-		return phTank;
+	@Override
+	public boolean checkFishInTank(String name) {
+		if(fish.getSpeciesName().equalsIgnoreCase(name))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

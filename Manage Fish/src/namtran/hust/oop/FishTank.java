@@ -21,7 +21,7 @@ public abstract class FishTank {
 
 	}
 
-	public Fish getFish() {
+	public Fish getFishToMove() {
 		Fish fish = null;
 		return fish;
 	}

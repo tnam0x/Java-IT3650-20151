@@ -9,14 +9,11 @@ public class SpeciesTank extends FishTank {
 	private float salinitiesTank;
 	private String temperatureTank;
 	private float phTank;
+	private Fish fish;
+	private int iFish;
 	private static Scanner sc;
 	private ArrayList<Fish> listFish = new ArrayList<Fish>();
 
-	/**
-	 * @param salinitiesTank
-	 * @param temperatureTank
-	 * @param phTank
-	 */
 	public SpeciesTank() {
 		// nồng độ muối
 		System.out.print("Enter salinities(%): ");
@@ -38,6 +35,7 @@ public class SpeciesTank extends FishTank {
 		System.out.print("Enter pH of tank (1-14): ");
 		sc = new Scanner(System.in);
 		phTank = sc.nextFloat();
+		System.out.println("Created!");
 	}
 
 	@Override
@@ -52,11 +50,12 @@ public class SpeciesTank extends FishTank {
 	@Override
 	public boolean checkFishSuitability(Fish fish) {
 		boolean result = false;
-		if (this.listFish.size() == 0)
+		if (this.listFish.isEmpty())
 			result = true;
-		else if (this.listFish.get(0).getSpeciesName().equalsIgnoreCase(fish.getSpeciesName()))
-			if (fish.checkEnviroment(phTank, salinitiesTank, temperatureTank))
-				result = true;
+		else if (0 < this.listFish.size() && this.listFish.size() < QUOTA)
+			if (this.listFish.get(0).getSpeciesName().equalsIgnoreCase(fish.getSpeciesName()))
+				if (fish.checkEnviroment(phTank, salinitiesTank, temperatureTank))
+					result = true;
 		if (!result)
 			System.out.println("Can't add fish in tank!");
 		return result;
@@ -64,37 +63,41 @@ public class SpeciesTank extends FishTank {
 
 	@Override
 	public void addFish(Fish fish) {
-		if (this.listFish.size() < QUOTA) {
-			this.listFish.add(fish);
-			System.out.println("Added!");
-		} else
-			System.out.println("Reached quota!");
+		this.listFish.add(fish);
 	}
 
 	@Override
 	public void removeFish(String name) {
+		boolean key = false;
 		for (int i = 0; i < listFish.size(); i++)
 			if (name.equalsIgnoreCase(listFish.get(i).getSpeciesName())) {
 				listFish.remove(i);
-				System.out.println("Removed!");
+				key = true;
 				break;
 			}
+		if (!key)
+			System.out.println("No species fish like that!");
 	}
 
-	public float getSalinitiesTank() {
-		return salinitiesTank;
+	@Override
+	public Fish getFishToMove() {
+		fish = listFish.get(iFish);
+		return fish;
 	}
 
-	public String getTemperatureTank() {
-		return temperatureTank;
-	}
-
-	public float getPhTank() {
-		return phTank;
-	}
-
-	public int getQUOTA() {
-		return QUOTA;
+	@Override
+	public boolean checkFishInTank(String name) {
+		boolean result = false;
+		for (int i = 0; i < listFish.size(); i++) {
+			if (name.equalsIgnoreCase(listFish.get(i).getSpeciesName())) {
+				result = true;
+				iFish = i;
+				break;
+			}
+		}
+		if (!result)
+			System.out.println(name + " don't have in tank!");
+		return result;
 	}
 
 	@Override

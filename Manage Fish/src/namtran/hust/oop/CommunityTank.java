@@ -5,21 +5,17 @@ import java.util.Scanner;
 
 public class CommunityTank extends FishTank {
 	private final static String NAME = "Community Tank";
+	@SuppressWarnings("unused")
 	private String sizeTank;
 	private int quota;
 	private float salinitiesTank;
 	private String temperatureTank;
 	private float phTank;
 	private static Scanner sc;
+	private Fish fish;
 	private int iFish;
 	private ArrayList<Fish> listFish = new ArrayList<Fish>();
 
-	/**
-	 * @param quota
-	 * @param salinitiesTank
-	 * @param temperatureTank
-	 * @param phTank
-	 */
 	public CommunityTank(String sizeTank) {
 		this.sizeTank = sizeTank;
 
@@ -51,6 +47,7 @@ public class CommunityTank extends FishTank {
 		System.out.print("Enter pH of tank (1-14): ");
 		sc = new Scanner(System.in);
 		phTank = sc.nextFloat();
+		System.out.println("Created!");
 	}
 
 	@Override
@@ -59,7 +56,7 @@ public class CommunityTank extends FishTank {
 			System.out.println("No any fish in this tank!");
 		else
 			for (int i = 0; i < listFish.size(); i++)
-				System.out.println(listFish);
+				System.out.println(listFish.get(i));
 	}
 
 	@Override
@@ -76,11 +73,7 @@ public class CommunityTank extends FishTank {
 
 	@Override
 	public void addFish(Fish fish) {
-		if (this.listFish.size() < quota) {
 			this.listFish.add(fish);
-			System.out.println("Added!");
-		} else
-			System.out.println("Reached quota!");
 	}
 
 	@Override
@@ -88,7 +81,6 @@ public class CommunityTank extends FishTank {
 		for (int i = 0; i < listFish.size(); i++)
 			if (name.equalsIgnoreCase(listFish.get(i).getSpeciesName())) {
 				listFish.remove(i);
-				System.out.println("Removed!");
 				break;
 			}
 	}
@@ -109,29 +101,9 @@ public class CommunityTank extends FishTank {
 	}
 
 	@Override
-	public Fish getFish() {
-		Fish fish = listFish.get(iFish);
+	public Fish getFishToMove() {
+		fish = listFish.get(iFish);
 		return fish;
-	}
-
-	public String getSizeTank() {
-		return sizeTank;
-	}
-
-	public int getQuota() {
-		return quota;
-	}
-
-	public float getSalinitiesTank() {
-		return salinitiesTank;
-	}
-
-	public String getTemperatureTank() {
-		return temperatureTank;
-	}
-
-	public float getPhTank() {
-		return phTank;
 	}
 
 	@Override

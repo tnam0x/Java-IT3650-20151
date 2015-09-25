@@ -10,14 +10,6 @@ public class Fish {
 	private boolean feature;
 	private static Scanner sc;
 
-	/**
-	 * @param name
-	 * @param minpH
-	 * @param maxpH
-	 * @param salinities
-	 * @param temperature
-	 * @param feature
-	 */
 	public Fish() {
 		// tên loài
 		System.out.println("create fish".toUpperCase());
@@ -53,11 +45,13 @@ public class Fish {
 		System.out.print("Loài không hung dữ [1] hay hung dữ [0]? ");
 		sc = new Scanner(System.in);
 		int choose = sc.nextInt();
-		if (choose == 1)
+		if (choose == 1) {
 			feature = true;
-		else if (choose == 0)
+			System.out.println("Created!");
+		} else if (choose == 0) {
 			feature = false;
-		else
+			System.out.println("Created!");
+		} else
 			System.out.println("Không hợp lệ!");
 	}
 
