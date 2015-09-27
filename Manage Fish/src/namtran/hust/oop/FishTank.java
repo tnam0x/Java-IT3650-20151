@@ -2,35 +2,19 @@ package namtran.hust.oop;
 
 public abstract class FishTank {
 	public FishTank() {
-
 	}
 
-	public void display() {
+	public abstract void display();
 
-	}
+	public abstract boolean checkFishSuitability(Fish fish);
 
-	public boolean checkFishSuitability(Fish fish) {
-		return true;
-	}
+	public abstract void addFish(Fish fish);
 
-	public void addFish(Fish fish) {
+	public abstract void removeFish(String name);
 
-	}
+	public abstract Fish getFishToMove();
 
-	public void removeFish(String name) {
+	public abstract boolean checkFishInTank(String name);
 
-	}
-
-	public Fish getFishToMove() {
-		Fish fish = null;
-		return fish;
-	}
-	
-	public boolean checkFishInTank(String name) {
-		return true;
-	}
-	
-	public String getNAME() {
-		return "";
-	}
+	public abstract String getNAME();
 }
