@@ -49,7 +49,6 @@ public class CommunityTank extends FishTank {
 		System.out.println("Created!");
 	}
 
-	@Override
 	public void display() {
 		System.out.println(NAME + " - " + sizeTank);
 		if (listFish.isEmpty())
@@ -60,7 +59,6 @@ public class CommunityTank extends FishTank {
 			}
 	}
 
-	@Override
 	public boolean checkFishSuitability(Fish fish) {
 		boolean result = false;
 		if (fish.isFeature())
@@ -72,12 +70,10 @@ public class CommunityTank extends FishTank {
 		return result;
 	}
 
-	@Override
 	public void addFish(Fish fish) {
 		this.listFish.add(fish);
 	}
 
-	@Override
 	public void removeFish(String name) {
 		for (int i = 0; i < listFish.size(); i++)
 			if (name.equalsIgnoreCase(listFish.get(i).getSpeciesName())) {
@@ -86,7 +82,6 @@ public class CommunityTank extends FishTank {
 			}
 	}
 
-	@Override
 	public boolean checkFishInTank(String name) {
 		boolean result = false;
 		for (int i = 0; i < listFish.size(); i++) {
@@ -101,13 +96,11 @@ public class CommunityTank extends FishTank {
 		return result;
 	}
 
-	@Override
 	public Fish getFishToMove() {
 		fish = listFish.get(iFish);
 		return fish;
 	}
 
-	@Override
 	public String getNAME() {
 		return NAME + " - " + sizeTank;
 	}

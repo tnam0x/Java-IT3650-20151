@@ -34,7 +34,6 @@ public class SpecimenTank extends FishTank {
 		System.out.println("Created!");
 	}
 
-	@Override
 	public void display() {
 		System.out.println(NAME);
 		if (fish == null)
@@ -43,7 +42,6 @@ public class SpecimenTank extends FishTank {
 			System.out.println("\t" + fish);
 	}
 
-	@Override
 	public boolean checkFishSuitability(Fish fish) {
 		if (this.fish == null)
 			if (fish.checkEnviroment(phTank, salinitiesTank, temperatureTank))
@@ -58,12 +56,10 @@ public class SpecimenTank extends FishTank {
 		}
 	}
 
-	@Override
 	public void addFish(Fish fish) {
 		this.fish = fish;
 	}
 
-	@Override
 	public void removeFish(String name) {
 		boolean key = false;
 		if (fish.getSpeciesName().equalsIgnoreCase(name)) {
@@ -74,12 +70,10 @@ public class SpecimenTank extends FishTank {
 			System.out.println("No species fish like that!");
 	}
 
-	@Override
 	public Fish getFishToMove() {
 		return fish;
 	}
 
-	@Override
 	public boolean checkFishInTank(String name) {
 		if (fish.getSpeciesName().equalsIgnoreCase(name))
 			return true;
@@ -89,7 +83,6 @@ public class SpecimenTank extends FishTank {
 		}
 	}
 
-	@Override
 	public String getNAME() {
 		return NAME;
 	}

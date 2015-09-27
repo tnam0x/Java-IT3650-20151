@@ -38,7 +38,6 @@ public class SpeciesTank extends FishTank {
 		System.out.println("Created!");
 	}
 
-	@Override
 	public void display() {
 		System.out.println(NAME);
 		if (listFish.isEmpty())
@@ -48,7 +47,6 @@ public class SpeciesTank extends FishTank {
 				System.out.println("\t" + listFish.get(i));
 	}
 
-	@Override
 	public boolean checkFishSuitability(Fish fish) {
 		boolean result = false;
 		if (this.listFish.isEmpty())
@@ -62,12 +60,10 @@ public class SpeciesTank extends FishTank {
 		return result;
 	}
 
-	@Override
 	public void addFish(Fish fish) {
 		this.listFish.add(fish);
 	}
 
-	@Override
 	public void removeFish(String name) {
 		boolean key = false;
 		for (int i = 0; i < listFish.size(); i++)
@@ -80,13 +76,11 @@ public class SpeciesTank extends FishTank {
 			System.out.println("No species fish like that!");
 	}
 
-	@Override
 	public Fish getFishToMove() {
 		fish = listFish.get(iFish);
 		return fish;
 	}
 
-	@Override
 	public boolean checkFishInTank(String name) {
 		boolean result = false;
 		for (int i = 0; i < listFish.size(); i++) {
@@ -101,7 +95,6 @@ public class SpeciesTank extends FishTank {
 		return result;
 	}
 
-	@Override
 	public String getNAME() {
 		return NAME;
 	}
