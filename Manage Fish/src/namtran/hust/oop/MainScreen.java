@@ -1,6 +1,7 @@
 package namtran.hust.oop;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainScreen {
@@ -26,25 +27,54 @@ public class MainScreen {
 			System.out.print("Choose an option: ");
 			sc = new Scanner(System.in);
 			String choose = sc.nextLine();
-			if (choose.equalsIgnoreCase("a"))
-				ms.createTank();
-			else if (choose.equalsIgnoreCase("b"))
-				ms.addFishInTank();
-			else if (choose.equalsIgnoreCase("c"))
-				ms.removeFishOutTank();
-			else if (choose.equalsIgnoreCase("d"))
-				ms.moveFishInOtherTank();
+			// create tank
+			if (choose.equalsIgnoreCase("a")) {
+				try {
+					ms.createTank();
+				} catch (InputMismatchException e) {
+					System.out.println("Input mismatch... please try again!");
+				}
+			}
+			// add fish in tank
+			else if (choose.equalsIgnoreCase("b")) {
+				try {
+					ms.addFishInTank();
+				} catch (InputMismatchException e) {
+					System.out.println("Input mismatch... please try again!");
+				}
+			} 
+			// remove fish out tank
+			else if (choose.equalsIgnoreCase("c")) {
+				try {
+					ms.removeFishOutTank();
+				} catch (InputMismatchException e) {
+					System.out.println("Input mismatch... please try again!");
+				}
+			} 
+			// move fish in other tank
+			else if (choose.equalsIgnoreCase("d")) {
+				try {
+					ms.moveFishInOtherTank();
+				} catch (InputMismatchException e) {
+					System.out.println("Input mismatch... please try again!");
+				}
+			} 
+			// display fish in all tank
 			else if (choose.equalsIgnoreCase("e"))
 				ms.displayFishInTank();
-			else if (choose.equalsIgnoreCase("f"))
+			// exit
+			else if (choose.equalsIgnoreCase("f")) {
+				System.out.println("Exited... see you!");
 				break;
+				}
+			// input mismatch
 			else
-				System.out.println("Wrong, try again!");
+				System.out.println("Not found... try again!");
 		}
 	}
 
 	// create tank
-	public void createTank() {
+	public void createTank() throws InputMismatchException {
 		System.out.println("*-----Create Tank-----*".toUpperCase());
 		if (listTank.size() >= NUMBER_OF_TANK)
 			System.out.println("Số lượng bể đã đạt tối đã, không thể thêm!");
@@ -80,8 +110,9 @@ public class MainScreen {
 						break;
 					} else if (chooseSize == 4)
 						break;
+					// not found input
 					else
-						System.out.println("Wrong, try again");
+						System.out.println("Not found... tr again!");
 				}
 
 			// create Species Tank
@@ -94,13 +125,15 @@ public class MainScreen {
 			else if (chooseTank == 3) {
 				specimenTank = new SpecimenTank();
 				listTank.add(specimenTank);
-			} else
-				System.out.println("Wrong, try again");
+			} 
+			// not found input
+			else
+				System.out.println("Not found... try again!");
 		}
 	}
 
 	// add fish intank
-	public void addFishInTank() {
+	public void addFishInTank() throws InputMismatchException {
 		System.out.println("*-----add a fish in tank-----*".toUpperCase());
 		if (listTank.isEmpty())
 			System.out.println("No any tank to add fish, first of all please add tank!");
@@ -123,12 +156,12 @@ public class MainScreen {
 				}
 			// not found tank
 			if (!key)
-				System.out.println("Wrong... try again!");
+				System.out.println("Not found tank... try again!");
 		}
 	}
 
 	// remove fish out tank
-	public void removeFishOutTank() {
+	public void removeFishOutTank() throws InputMismatchException {
 		System.out.println("*-----remove a fish out tank-----*".toUpperCase());
 		if (listTank.isEmpty())
 			System.out.println("No any tank to remove fish, first of all please add tank then add fish!");
@@ -154,12 +187,12 @@ public class MainScreen {
 				}
 			// not found tank
 			if (!key)
-				System.out.println("Wrong... try again!");
+				System.out.println("Not found... try again!");
 		}
 	}
 
 	// move fish in other tank
-	public void moveFishInOtherTank() {
+	public void moveFishInOtherTank() throws InputMismatchException {
 		System.out.println("*-----move a fish in other tank-----*".toUpperCase());
 		// enter species name need move
 		if (listTank.isEmpty())
@@ -197,14 +230,14 @@ public class MainScreen {
 							}
 						// not found tank
 						if (!key_in)
-							System.out.println("Wrong... try again!");
+							System.out.println("Not found tank... try again!");
 						// break while chosen
 						break;
 					}
 				}
 			// not found tank
 			if (!key_out)
-				System.out.println("Wrong... try again!");
+				System.out.println("Not found tank... try again!");
 		}
 	}
 

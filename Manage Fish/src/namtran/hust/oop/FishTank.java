@@ -1,7 +1,9 @@
 package namtran.hust.oop;
 
+import java.util.InputMismatchException;
+
 public abstract class FishTank {
-	public FishTank() {
+	public FishTank() throws InputMismatchException{
 	}
 
 	public abstract void display();

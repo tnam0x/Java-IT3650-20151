@@ -1,5 +1,6 @@
 package namtran.hust.oop;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Fish {
@@ -7,10 +8,10 @@ public class Fish {
 	private float minpH, maxpH;
 	private String salinities;
 	private String temperature;
-	private boolean feature;
+	private boolean isAggressive;
 	private static Scanner sc;
 
-	public Fish() {
+	public Fish() throws InputMismatchException{
 		// tên loài
 		System.out.println("create fish".toUpperCase());
 		System.out.print("Enter species name: ");
@@ -38,7 +39,7 @@ public class Fish {
 			temperature = "Nhiệt Đới";
 		else if ("h".equalsIgnoreCase(chooseTemp))
 			temperature = "Hàn Đới";
-		else
+		else 
 			System.out.println("Không hợp lệ!");
 
 		// thông tin loài có hung dữ hay không
@@ -46,10 +47,10 @@ public class Fish {
 		sc = new Scanner(System.in);
 		int choose = sc.nextInt();
 		if (choose == 1) {
-			feature = true;
+			isAggressive = true;
 			System.out.println("Created!");
 		} else if (choose == 0) {
-			feature = false;
+			isAggressive = false;
 			System.out.println("Created!");
 		} else
 			System.out.println("Không hợp lệ!");
@@ -59,7 +60,7 @@ public class Fish {
 	public String toString() {
 		String str = "";
 		String feature = "";
-		if (this.feature)
+		if (this.isAggressive)
 			feature = "không hung dữ";
 		else
 			feature = "hung dữ";
@@ -92,7 +93,7 @@ public class Fish {
 	}
 
 	public boolean isFeature() {
-		return feature;
+		return isAggressive;
 	}
 
 	public String getSpeciesName() {
