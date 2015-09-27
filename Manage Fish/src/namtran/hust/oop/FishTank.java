@@ -12,9 +12,9 @@ public abstract class FishTank {
 
 	public abstract void removeFish(String name);
 
-	public abstract Fish getFishToMove();
-
 	public abstract boolean checkFishInTank(String name);
+	
+	public abstract Fish getFishToMove();
 
 	public abstract String getNAME();
 }
