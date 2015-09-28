@@ -1,5 +1,6 @@
 package demo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 class Test {
@@ -42,5 +43,10 @@ class Test {
 		if (flags)
 			System.out.println("Done!");
 		
+		String barcode = "KDOW";
+		String descChar = "Product";
+		float price = 1009.23F;
+		DecimalFormat df = new DecimalFormat("0.00");
+		System.out.printf("%1$13s: %2$-26s $ %3$7s", barcode, descChar, df.format(price));
 	}
 }

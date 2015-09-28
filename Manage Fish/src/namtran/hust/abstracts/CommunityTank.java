@@ -1,4 +1,4 @@
-package namtran.hust.oop;
+package namtran.hust.abstracts;
 
 import java.util.ArrayList;
 import java.util.Scanner;
