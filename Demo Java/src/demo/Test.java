@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 class Test {
 	private static boolean flag;
+
 	public static void main(String[] args) {
 		StringBuilder strb = new StringBuilder();
 		System.out.println("Capacity: " + strb.capacity());
@@ -22,23 +23,24 @@ class Test {
 		String[] str = { "", "", "" };
 		str[0] += "*";
 		System.out.println(str[0]);
-		
+
 		//
-		ArrayList<Object> list = new  ArrayList<>();
-		if(list.isEmpty())
+		ArrayList<Object> list = new ArrayList<>();
+		if (list.isEmpty())
 			System.out.println("NULL");
 		else
 			System.out.println("Not NULL");
-		
+
 		//
 		boolean flags = false;
-		if(!flags)
+		if (!flags)
 			flags = true;
-		if(flags) {
+		if (flags) {
 			System.out.println("True");
 			flags = true;
 		}
-		if(flags)
+		if (flags)
 			System.out.println("Done!");
+		
 	}
 }
