@@ -14,8 +14,7 @@ public class Item implements Sellable {
 
 	@Override
 	public String toString() {
-		String str = "";
-		str += "Price: " + price + " | Description: " + description + " | Barcode: " + barcode;
+		String str = "Price: " + price + " | Description: " + description + " | Barcode: " + barcode;
 		return str;
 	}
 
@@ -27,6 +26,6 @@ public class Item implements Sellable {
 	@Override
 	public String getReceiptLine() {
 		DecimalFormat df = new DecimalFormat("0.00");
-		return String.format("%1$13s: %2$-26s   $ %3$7s", barcode, description, df.format(price));
+		return String.format("%1$13s: %2$-26s $ %3$7s", barcode, description, df.format(price));
 	}
 }

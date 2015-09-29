@@ -1,5 +1,5 @@
 package namtran.hust.interfaces;
 
 public interface HasMass {
-	int getVolumn();
+	double getVolume();
 }

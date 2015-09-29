@@ -19,8 +19,7 @@ public class Timber implements Sellable {
 
 	@Override
 	public String toString() {
-		String str = "";
-		str += "Type of wood: " + typeOfWood + " | Thickness: " + thickness + " | Width: " + width + " | Legth: "
+		String str = "Type of wood: " + typeOfWood + " | Thickness: " + thickness + " | Width: " + width + " | Legth: "
 				+ legth + " | Price/Meter: " + pricePerMeter;
 		return str;
 	}
@@ -34,6 +33,6 @@ public class Timber implements Sellable {
 	public String getReceiptLine() {
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = legth + " m of " + width + " cm x " + thickness + " cm " + typeOfWood;
-		return String.format("%1$-43s $ %2$7s", str, df.format(getPrice()));
+		return String.format("%1$-41s $ %2$7s", str, df.format(getPrice()));
 	}
 }
