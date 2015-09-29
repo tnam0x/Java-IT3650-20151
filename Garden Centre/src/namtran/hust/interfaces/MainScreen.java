@@ -43,6 +43,7 @@ public class MainScreen {
 		String str = "Total $" + df.format(cost);
 		System.out.println("---------------------------------------------------");
 		System.out.format("%51s", str);
+		// tổng thể tích của tất cả các đối tượng
 		System.out.println("\nVolume in delivery: " + totalVolume + " cubic metres");
 
 	}
