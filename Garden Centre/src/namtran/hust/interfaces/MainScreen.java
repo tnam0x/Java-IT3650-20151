@@ -7,6 +7,7 @@ public class MainScreen {
 	private static Sellable[] sellable;
 	private static double cost;
 	private static double totalVolume;
+	private static HasMass[] hasMass;
 
 	public static void main(String[] args) {
 		sellable = new Sellable[MAX_SELLABLE];
@@ -31,9 +32,11 @@ public class MainScreen {
 		soil = new Soil("River Sand", 40, 2.2, 2.4);
 		sellable[i++] = soil;
 		// display
+		hasMass = (HasMass[]) sellable;
 		for (int j = 0; j < i; j++) {
 			System.out.println(sellable[j].getReceiptLine());
 			cost += sellable[j].getPrice();
+			totalVolume +=hasMass[j].getVolume();
 		}
 		// show cost
 		DecimalFormat df = new DecimalFormat(".##");

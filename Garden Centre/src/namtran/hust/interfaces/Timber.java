@@ -35,4 +35,10 @@ public class Timber implements Sellable {
 		String str = legth + " m of " + width + " cm x " + thickness + " cm " + typeOfWood;
 		return String.format("%1$-41s $ %2$7s", str, df.format(getPrice()));
 	}
+
+	@Override
+	public double getVolume() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

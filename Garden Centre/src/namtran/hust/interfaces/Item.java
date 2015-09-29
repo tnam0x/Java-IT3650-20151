@@ -28,4 +28,10 @@ public class Item implements Sellable {
 		DecimalFormat df = new DecimalFormat("0.00");
 		return String.format("%1$13s: %2$-26s $ %3$7s", barcode, description, df.format(price));
 	}
+
+	@Override
+	public double getVolume() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
