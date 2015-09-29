@@ -28,7 +28,7 @@ public class MainScreen {
 		sellable[i++] = rock;
 		Soil soil = new Soil("Loam", 30, 12.25, 10);
 		sellable[i++] = soil;
-		soil = new Soil("River Sand", 40, 2.2, 2);
+		soil = new Soil("River Sand", 40, 2.2, 2.4);
 		sellable[i++] = soil;
 		// display
 		for (int j = 0; j < i; j++) {

@@ -28,7 +28,7 @@ public class Soil implements Sellable, HasMass {
 	@Override
 	public String getReceiptLine() {
 		DecimalFormat df = new DecimalFormat("0.00");
-		String str = buyVolume + " cubic metres of " + description+" ("+particleSize+")";
+		String str = buyVolume + " cubic metres of " + description+" ("+particleSize+"mm)";
 		return String.format("%1$-41s $ %2$7s", str, df.format(getPrice()));
 	}
 }
