@@ -1,5 +1,7 @@
 package namtran.hust.interfaces;
 
+import java.text.DecimalFormat;
+
 public class Soil implements Sellable, HasMass {
 	private String description;
 	private double pricePerCubicMetres; // price
@@ -25,7 +27,8 @@ public class Soil implements Sellable, HasMass {
 
 	@Override
 	public String getReceiptLine() {
-		// TODO Auto-generated method stub
-		return null;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = buyVolume + " cubic metres of " + description+" ("+particleSize+")";
+		return String.format("%1$-41s $ %2$7s", str, df.format(getPrice()));
 	}
 }
