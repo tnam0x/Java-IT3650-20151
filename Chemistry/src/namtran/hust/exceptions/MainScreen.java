@@ -35,7 +35,6 @@ public class MainScreen {
 		// display code
 		System.out.println();
 		System.out.println(hazchem);
-		System.out.println();
 		// display instruction
 		System.out.println("***Emergency action advice***");
 		System.out.println("Material: " + hazchem.getMaterial());

@@ -31,14 +31,13 @@ public class Hazchem {
 								// kiem tra ki tu thu 2 co mau gi (neu can)
 								if (SECOND_CHAR[j] == 'S' || SECOND_CHAR[j] == 'T' || SECOND_CHAR[j] == 'Y'
 										|| SECOND_CHAR[j] == 'Z') {
-									System.out.print("Is the " + SECOND_CHAR[j] + " reverse coloured?[y/n] ");
+									System.out.print("Is the " + SECOND_CHAR[j] + " reverse coloured[y/n]? ");
 									sc = new Scanner(System.in);
 									String answer = sc.nextLine();
 									if (answer.equals("y"))
 										changeCode(codeHazchem, true);
-									else
-										changeCode(codeHazchem);
-								}
+								} else
+									changeCode(codeHazchem);
 								break;
 							}
 						if (!checkSecondCharacter)
@@ -62,21 +61,21 @@ public class Hazchem {
 	}
 
 	public Hazchem(String codeHazchem) {
-		if (codeHazchem.length() == 3)
-			this.evacuation = "E";
-		else
-			this.evacuation = "";
 		changeCode(codeHazchem);
 	}
 
 	public void changeCode(String codeHazchem) {
 		this.codeHazchem = codeHazchem;
 		this.isColor = false;
+		if (codeHazchem.length() == 3)
+			this.evacuation = "E";
+		else
+			this.evacuation = "";
 	}
 
 	public void getAdvice() {
 		for (int i = 1; i < 5; i++) {
-			if (codeHazchem.charAt(0) == (i+48))
+			if (codeHazchem.charAt(0) == (i + 48))
 				material = MATERIAL[i - 1];
 		}
 		if (isColor)
