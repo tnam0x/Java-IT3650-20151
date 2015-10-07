@@ -4,7 +4,7 @@ public class InvalidHazchemCodeException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public InvalidHazchemCodeException() {
-		super();
+		super("Somthing wrong!");
 	}
 
 	public InvalidHazchemCodeException(String msg) {
