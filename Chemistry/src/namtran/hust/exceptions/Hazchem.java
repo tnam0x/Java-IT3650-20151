@@ -31,7 +31,7 @@ public class Hazchem {
 								// kiem tra ki tu thu 2 co mau gi (neu can)
 								if (SECOND_CHAR[j] == 'S' || SECOND_CHAR[j] == 'T' || SECOND_CHAR[j] == 'Y'
 										|| SECOND_CHAR[j] == 'Z') {
-									System.out.print("Is the " + SECOND_CHAR[j] + " reverse coloured[y/n]? ");
+									System.out.print("Is the " + SECOND_CHAR[j] + " reverse coloured [y/n]? ");
 									sc = new Scanner(System.in);
 									String answer = sc.nextLine();
 									if (answer.equals("y"))

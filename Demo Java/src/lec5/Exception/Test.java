@@ -7,8 +7,9 @@ public class Test {
 	public static void main(String[] args) {
 		int x, fx;
 		boolean check = true;
-		Scanner inputData = new Scanner(System.in);
+		Scanner inputData;
 		while (check) {
+			inputData = new Scanner(System.in);
 			System.out.print("Enter x: ");
 			try {
 				x = inputData.nextInt();
