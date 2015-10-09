@@ -17,8 +17,8 @@ import javax.swing.WindowConstants;
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField resultJText;
-	private double tempNumbers1 = 0;
-	private double tempNumbers2 = 0;
+	private double tempNumbers1 = 0d;
+	private double tempNumbers2 = 0d;
 	private byte function = -1;
 
 	/**
@@ -57,7 +57,7 @@ public class SimpleCalculate extends JFrame {
 		JButton addButton = new JButton("+");
 		JButton substractButton = new JButton("-");
 
-		resultJText = new JTextField();
+		resultJText = new JTextField("0");
 		resultJText.setPreferredSize(new Dimension(180, 25));
 		resultJText.setBackground(Color.WHITE);
 		resultJText.setEnabled(false);
@@ -118,11 +118,11 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.equals("0.0"))
+			if ((!resultJText.getText().equals("0")) && (!resultJText.getText().equals("0.0")))
 				resultJText.setText(resultJText.getText() + c);
 			else {
 				resultJText.setText(c);
-				actionPerformed(e);
+				//actionPerformed(e);
 			}
 		}
 	}
@@ -139,7 +139,9 @@ public class SimpleCalculate extends JFrame {
 			else if (function == 2)
 				resultJText.setText(Double.toString(tempNumbers1 + tempNumbers2));
 			else if (function == 3)
-				resultJText.setText(String.valueOf(tempNumbers1));
+				resultJText.setText(Double.toString(tempNumbers1 - tempNumbers2));
+			else
+				 resultJText.setText(String.valueOf(tempNumbers2));
 			tempNumbers1 = Double.parseDouble(resultJText.getText());
 		}
 	}
@@ -148,7 +150,7 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			resultJText.setText("");
+			resultJText.setText("0");
 			tempNumbers1 = 0;
 			tempNumbers1 = 0;
 			function = -1;
