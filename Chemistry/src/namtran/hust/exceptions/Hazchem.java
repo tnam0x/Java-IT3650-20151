@@ -3,7 +3,7 @@ package namtran.hust.exceptions;
 import java.util.Scanner;
 
 public class Hazchem {
-	private String codeHazchem;
+	private String hazchemCode;
 	private boolean isColor;
 	private boolean reactivity;
 	private String protection;
@@ -14,19 +14,19 @@ public class Hazchem {
 	private final String[] MATERIAL = { "Jets", "Fog", "Foam", "Dry agent" };
 	private final char[] SECOND_CHAR = { 'P', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z' };
 
-	public Hazchem(String codeHazchem, boolean isColor) throws InvalidHazchemCodeException {
+	public Hazchem(String hazchemCode, boolean isColor) throws InvalidHazchemCodeException {
 		boolean checkFirstCharacter = false, checkSecondCharacter = false;
 		// kiem tra co du 2-3 ki tu
-		if ((codeHazchem.length() == 3 && codeHazchem.charAt(2) == 'E') || codeHazchem.length() == 2)
+		if ((hazchemCode.length() == 3 && hazchemCode.charAt(2) == 'E') || hazchemCode.length() == 2)
 			// kiem tra ki tu dau tien la so
-			if (Character.isDigit(codeHazchem.charAt(0))) {
+			if (Character.isDigit(hazchemCode.charAt(0))) {
 				// kiem tra ki tu dau tien la so 1-4
 				for (int i = 1; i < 5; i++)
-					if (codeHazchem.charAt(0) == (48 + i)) {
+					if (hazchemCode.charAt(0) == (48 + i)) {
 						checkFirstCharacter = true;
 						// kiem tra ki tu thu 2
 						for (int j = 0; j < SECOND_CHAR.length; j++)
-							if (SECOND_CHAR[j] == codeHazchem.charAt(1)) {
+							if (SECOND_CHAR[j] == hazchemCode.charAt(1)) {
 								checkSecondCharacter = true;
 								// kiem tra ki tu thu 2 co mau gi (neu can)
 								if (SECOND_CHAR[j] == 'S' || SECOND_CHAR[j] == 'T' || SECOND_CHAR[j] == 'Y'
@@ -35,9 +35,9 @@ public class Hazchem {
 									sc = new Scanner(System.in);
 									String answer = sc.nextLine();
 									if (answer.equals("y"))
-										changeCode(codeHazchem, true);
+										changeCode(hazchemCode, true);
 								} else
-									changeCode(codeHazchem);
+									changeCode(hazchemCode);
 								break;
 							}
 						if (!checkSecondCharacter)
@@ -52,7 +52,7 @@ public class Hazchem {
 	}
 
 	public void changeCode(String codeHazchem, boolean isColor) {
-		this.codeHazchem = codeHazchem;
+		this.hazchemCode = codeHazchem;
 		this.isColor = isColor;
 		if (codeHazchem.length() == 3)
 			this.evacuation = "E";
@@ -65,7 +65,7 @@ public class Hazchem {
 	}
 
 	public void changeCode(String codeHazchem) {
-		this.codeHazchem = codeHazchem;
+		this.hazchemCode = codeHazchem;
 		this.isColor = false;
 		if (codeHazchem.length() == 3)
 			this.evacuation = "E";
@@ -75,22 +75,22 @@ public class Hazchem {
 
 	public void getAdvice() {
 		for (int i = 1; i < 5; i++) {
-			if (codeHazchem.charAt(0) == (i + 48))
+			if (hazchemCode.charAt(0) == (i + 48))
 				material = MATERIAL[i - 1];
 		}
 		if (isColor)
 			protection = "BA for fire only";
-		else if (codeHazchem.charAt(1) == 'P' || codeHazchem.charAt(1) == 'R' || codeHazchem.charAt(1) == 'X'
-				|| codeHazchem.charAt(1) == 'W')
+		else if (hazchemCode.charAt(1) == 'P' || hazchemCode.charAt(1) == 'R' || hazchemCode.charAt(1) == 'X'
+				|| hazchemCode.charAt(1) == 'W')
 			protection = "Full";
 		else
 			protection = "BA";
-		if (codeHazchem.charAt(1) == 'P' || codeHazchem.charAt(1) == 'R' || codeHazchem.charAt(1) == 'S'
-				|| codeHazchem.charAt(1) == 'T')
+		if (hazchemCode.charAt(1) == 'P' || hazchemCode.charAt(1) == 'R' || hazchemCode.charAt(1) == 'S'
+				|| hazchemCode.charAt(1) == 'T')
 			containment = "Dilute";
 		else
 			containment = "Contain";
-		if (codeHazchem.charAt(1) == 'R' || codeHazchem.charAt(1) == 'T' || codeHazchem.charAt(1) == 'X')
+		if (hazchemCode.charAt(1) == 'R' || hazchemCode.charAt(1) == 'T' || hazchemCode.charAt(1) == 'X')
 			reactivity = false;
 		else
 			reactivity = true;
@@ -98,7 +98,7 @@ public class Hazchem {
 	}
 
 	public String toString() {
-		String str = "Hazchem[ code: " + codeHazchem + ", reversed: " + isColor + " ]";
+		String str = "Hazchem[ code: " + hazchemCode + ", reversed: " + isColor + " ]";
 		return str;
 	}
 

@@ -1,5 +1,8 @@
 package namtran.hust.exceptions;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class MainScreen {
@@ -27,6 +30,11 @@ public class MainScreen {
 				continue;
 			else
 				break;
+		}
+		try {
+			workWithFile();
+		} catch (FileNotFoundException | InvalidHazchemCodeException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -57,5 +65,57 @@ public class MainScreen {
 		else
 			System.out.println("Evacuation:");
 		System.out.println("*****************************");
+	}
+
+	// work with file
+	public static void workWithFile() throws InvalidHazchemCodeException, FileNotFoundException {
+		System.out.println("***Work with file***");
+		do {
+			System.out.print("Enter the file name that contain Hazchem code: ");
+			sc = new Scanner(System.in);
+			File file = new File(sc.nextLine());
+			String hazchemCode = "";
+			if (file.exists() && !file.isDirectory()) {
+				sc = new Scanner(file);
+				if (sc.hasNextLine()) {
+					hazchemCode = sc.nextLine();
+					hazchem = new Hazchem(hazchemCode, false);
+					hazchem.getAdvice();
+					display();
+				} else
+					System.out.println("Invalid hazchem code file!");
+				sc.close();
+				System.out.print("Do you want to change this Hazchem code? [y/n]: ");
+			} else {
+				System.out.println("Warning: no such file or directory!");
+				System.out.print("Do you want to enter new Hazchem code? [y/n]: ");
+			}
+			sc = new Scanner(System.in);
+			String reply = sc.nextLine();
+			if ("y".equalsIgnoreCase(reply)) {
+				do {
+					System.out.print("Enter new Hazchem code: ");
+					hazchemCode = sc.nextLine();
+					hazchem = new Hazchem(hazchemCode, false);
+					break;
+				} while (true);
+			}
+			System.out.print("Enter new file name to save current hazchem code: ");
+			sc = new Scanner(System.in);
+			reply = sc.nextLine();
+			try (FileWriter writer = new FileWriter(reply)) {
+				writer.write(hazchemCode);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			file.delete();
+			System.out.print("Do you want to continue?[y/n]: ");
+			sc = new Scanner(System.in);
+			reply = sc.nextLine();
+			if ("y".equalsIgnoreCase(reply))
+				continue;
+			else
+				break;
+		} while (true);
 	}
 }
