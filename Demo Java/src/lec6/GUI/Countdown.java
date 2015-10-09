@@ -7,6 +7,8 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Countdown extends Frame {
 	private static final long serialVersionUID = 4590584563433169064L;
@@ -18,7 +20,7 @@ public class Countdown extends Frame {
 		setLayout(new FlowLayout());
 		add(new Label("Counter"));
 
-		tfCount = new TextField("0",10);
+		tfCount = new TextField("0", 10);
 		add(tfCount);
 		tfCount.setEnabled(false);
 
@@ -39,6 +41,13 @@ public class Countdown extends Frame {
 		setSize(400, 100);
 		setLocationRelativeTo(null); // center
 		setVisible(true);
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				System.exit(0);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
