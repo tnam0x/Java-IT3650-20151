@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 public class Count extends JFrame {
 
@@ -27,15 +26,12 @@ public class Count extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*new Count();
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new Count();
-			}
-		});*/
-		
+		/*
+		 * new Count(); SwingUtilities.invokeLater(new Runnable() {
+		 * 
+		 * @Override public void run() { new Count(); } });
+		 */
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,15 +47,14 @@ public class Count extends JFrame {
 	 * Create the frame.
 	 */
 	public Count() {
-		//super("Swing Counter");
+		// super("Swing Counter");
 		setTitle("Swing Counter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 380, 197);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setVisible(true);
+		setContentPane(contentPane);
 
 		JLabel lblCounter = new JLabel("Counter");
 		lblCounter.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
@@ -70,8 +65,8 @@ public class Count extends JFrame {
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textField.setBounds(89, 44, 102, 34);
-		contentPane.add(textField);
 		textField.setEnabled(false);
+		contentPane.add(textField);
 
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
