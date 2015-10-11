@@ -17,9 +17,10 @@ import javax.swing.WindowConstants;
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField resultJText;
-	private double tempNumbers1 = 0d;
-	private double tempNumbers2 = 0d;
+	private double tempNumbers1 = 0;
+	private double tempNumbers2 = 0;
 	private byte function = -1;
+	private boolean beforeEnter;
 
 	/**
 	 * Launch the application.
@@ -111,13 +112,20 @@ public class SimpleCalculate extends JFrame {
 
 	private class NumberButtonsAction implements ActionListener {
 		String c;
-
 		public NumberButtonsAction(JButton a) {
 			this.c = a.getText();
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if(beforeEnter){
+				resultJText.setText("0");
+				tempNumbers1 = 0;
+				tempNumbers1 = 0;
+				function = -1;
+				beforeEnter = false;
+			}
+				
 			if ((!resultJText.getText().equals("0")) && (!resultJText.getText().equals("0.0")))
 				resultJText.setText(resultJText.getText() + c);
 			else {
@@ -143,6 +151,7 @@ public class SimpleCalculate extends JFrame {
 			else
 				 resultJText.setText(String.valueOf(tempNumbers2));
 			tempNumbers1 = Double.parseDouble(resultJText.getText());
+			beforeEnter = true;
 		}
 	}
 
