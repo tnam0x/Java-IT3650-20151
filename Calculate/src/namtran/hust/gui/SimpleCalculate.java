@@ -20,7 +20,7 @@ public class SimpleCalculate extends JFrame {
 	private double tempNumbers1 = 0;
 	private double tempNumbers2 = 0;
 	private byte function = -1;
-	private boolean beforeEnter;
+	private boolean recentEnter, recentFunction;
 
 	/**
 	 * Launch the application.
@@ -31,7 +31,7 @@ public class SimpleCalculate extends JFrame {
 				try {
 					new SimpleCalculate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
 			}
 		});
@@ -66,17 +66,17 @@ public class SimpleCalculate extends JFrame {
 		resultJText.setHorizontalAlignment(4);
 		resultJText.setDisabledTextColor(Color.RED);
 		resultJText.setBorder(BorderFactory.createLoweredBevelBorder());
-		
+
 		show1 = new JTextField("0");
-		show1.setPreferredSize(new Dimension(25, 25));
+		show1.setPreferredSize(new Dimension(50, 25));
 		show1.setBackground(Color.WHITE);
 		show1.setEnabled(false);
 		show1.setHorizontalAlignment(4);
 		show1.setDisabledTextColor(Color.RED);
 		show1.setBorder(BorderFactory.createLoweredBevelBorder());
-		
+
 		show2 = new JTextField("0");
-		show2.setPreferredSize(new Dimension(25, 25));
+		show2.setPreferredSize(new Dimension(50, 25));
 		show2.setBackground(Color.WHITE);
 		show2.setEnabled(false);
 		show2.setHorizontalAlignment(4);
@@ -103,18 +103,18 @@ public class SimpleCalculate extends JFrame {
 		calculationButtonPanel.add(divideButton);
 		calculationButtonPanel.add(addButton);
 		calculationButtonPanel.add(substractButton);
-		
+
 		JPanel functionButtonPanel = new JPanel();
 		functionButtonPanel.setPreferredSize(new Dimension());
 		functionButtonPanel.add(enterButton);
 		functionButtonPanel.add(cButton);
-		
+
 		NumberButtonsAction[] numberButtonActions = new NumberButtonsAction[10];
-		for(int i=9; i>=0; i--) {
+		for (int i = 9; i >= 0; i--) {
 			numberButtonActions[i] = new NumberButtonsAction(numberButtons[i]);
 			numberButtons[i].addActionListener(numberButtonActions[i]);
 		}
-		
+
 		enterButton.addActionListener(new EnterButton());
 		cButton.addActionListener(new CButton());
 		multiplyButton.addActionListener(new MultiplyButton());
@@ -131,25 +131,28 @@ public class SimpleCalculate extends JFrame {
 
 	private class NumberButtonsAction implements ActionListener {
 		String c;
+
 		public NumberButtonsAction(JButton a) {
 			this.c = a.getText();
+			// recentEnter = true;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(beforeEnter){
+			// clear all
+			if (recentEnter) {
 				resultJText.setText("0");
 				tempNumbers1 = 0;
 				tempNumbers1 = 0;
 				function = -1;
-				beforeEnter = false;
+				recentEnter = false;
 			}
-				
+
 			if ((!resultJText.getText().equals("0")) && (!resultJText.getText().equals("0.0")))
 				resultJText.setText(resultJText.getText() + c);
 			else {
 				resultJText.setText(c);
-				//actionPerformed(e);
+				// actionPerformed(e);
 			}
 		}
 	}
@@ -158,21 +161,12 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tempNumbers2 = Double.parseDouble(resultJText.getText());
-			show1.setText(tempNumbers1+"");
-			show2.setText(tempNumbers2+"");
-			if (function == 0)
-				resultJText.setText(Double.toString(tempNumbers1 * tempNumbers2));
-			else if (function == 1)
-				resultJText.setText(Double.toString(Math.round(tempNumbers1) / tempNumbers2));
-			else if (function == 2)
-				resultJText.setText(Double.toString(tempNumbers1 + tempNumbers2));
-			else if (function == 3)
-				resultJText.setText(Double.toString(tempNumbers1 - tempNumbers2));
-			else
-				 resultJText.setText(String.valueOf(tempNumbers2));
-			tempNumbers1 = Double.parseDouble(resultJText.getText());
-			beforeEnter = true;
+			if (!resultJText.getText().isEmpty()) {
+				calculate();
+				recentEnter = true;
+				recentFunction = false;
+			} else
+				resultJText.setText("ERROR");
 		}
 	}
 
@@ -181,9 +175,13 @@ public class SimpleCalculate extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			resultJText.setText("0");
+			show1.setText("0");
+			show2.setText("0");
 			tempNumbers1 = 0;
 			tempNumbers1 = 0;
 			function = -1;
+			recentEnter = false;
+			recentFunction = false;
 		}
 	}
 
@@ -191,13 +189,18 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (tempNumbers1 == 0 || beforeEnter) {
-				tempNumbers1 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
-				beforeEnter = false;
-			} else {
-				tempNumbers2 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
+			if (!resultJText.getText().isEmpty()) {
+				if (recentFunction)
+					calculate();
+				if (tempNumbers1 == 0 || recentEnter) {
+					tempNumbers1 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+					recentEnter = false;
+				} else {
+					// tempNumbers2 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+				}
+				recentFunction = true;
 			}
 			function = 0;
 		}
@@ -207,13 +210,18 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (tempNumbers1 == 0 || beforeEnter) {
-				tempNumbers1 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
-				beforeEnter = false;
-			} else {
-				tempNumbers2 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
+			if (!resultJText.getText().isEmpty()) {
+				if (recentFunction)
+					calculate();
+				if (tempNumbers1 == 0 || recentEnter) {
+					tempNumbers1 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+					recentEnter = false;
+				} else {
+					// tempNumbers2 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+				}
+				recentFunction = true;
 			}
 			function = 1;
 		}
@@ -223,13 +231,18 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (tempNumbers1 == 0 || beforeEnter) {
-				tempNumbers1 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
-				beforeEnter = false;
-			} else {
-				tempNumbers2 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
+			if (!resultJText.getText().isEmpty()) {
+				if (recentFunction)
+					calculate();
+				if (tempNumbers1 == 0 || recentEnter) {
+					tempNumbers1 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+					recentEnter = false;
+				} else {
+					// tempNumbers2 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+				}
+				recentFunction = true;
 			}
 			function = 2;
 		}
@@ -239,15 +252,38 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (tempNumbers1 == 0 || beforeEnter) {
-				tempNumbers1 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
-				beforeEnter = false;
-			} else {
-				tempNumbers2 = Double.parseDouble(resultJText.getText());
-				resultJText.setText("");
+			if (!resultJText.getText().isEmpty()) {
+				if (recentFunction)
+					calculate();
+				if (tempNumbers1 == 0 || recentEnter) {
+					tempNumbers1 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+					recentEnter = false;
+				} else {
+					// tempNumbers2 = Double.parseDouble(resultJText.getText());
+					resultJText.setText("");
+				}
+				recentFunction = true;
 			}
 			function = 3;
 		}
+	}
+
+	public void calculate() {
+		tempNumbers2 = Double.parseDouble(resultJText.getText());
+		show1.setText(tempNumbers1 + "");
+		show2.setText(tempNumbers2 + "");
+		if (function == 0)
+			resultJText.setText(Double.toString(tempNumbers1 * tempNumbers2));
+		else if (function == 1)
+			resultJText.setText(Double.toString((tempNumbers1) / tempNumbers2));
+		else if (function == 2)
+			resultJText.setText(Double.toString(tempNumbers1 + tempNumbers2));
+		else if (function == 3)
+			resultJText.setText(Double.toString(tempNumbers1 - tempNumbers2));
+		else
+			resultJText.setText(String.valueOf(tempNumbers2));
+		tempNumbers1 = Double.parseDouble(resultJText.getText());
+		tempNumbers2 = 0;
 	}
 }
