@@ -1,11 +1,13 @@
 package namtran.hust.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -13,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -47,6 +50,7 @@ public class SimpleCalculate extends JFrame {
 	 */
 	public SimpleCalculate() {
 		setTitle("Calculator");
+		setLocationByPlatform(isLocationByPlatform());
 		setSize(230, 330);
 		setResizable(false);
 		setLocationByPlatform(true);
@@ -68,7 +72,7 @@ public class SimpleCalculate extends JFrame {
 		resultJText.setPreferredSize(new Dimension(180, 25));
 		resultJText.setBackground(Color.WHITE);
 		resultJText.setEnabled(false);
-		resultJText.setHorizontalAlignment(4);
+		resultJText.setHorizontalAlignment(JTextField.RIGHT);
 		resultJText.setDisabledTextColor(Color.RED);
 		resultJText.setBorder(BorderFactory.createLoweredBevelBorder());
 
@@ -90,7 +94,7 @@ public class SimpleCalculate extends JFrame {
 		motherPanel.setLayout(new BoxLayout(motherPanel, BoxLayout.Y_AXIS));
 
 		JPanel textPanel = new JPanel();
-		textPanel.setPreferredSize(new Dimension());
+		textPanel.setPreferredSize(new Dimension(0, 0));
 		textPanel.add(resultJText);
 		/*
 		 * textPanel.add(show1); textPanel.add(show2);
@@ -127,14 +131,39 @@ public class SimpleCalculate extends JFrame {
 		substractButton.addActionListener(new SubstractButton());
 
 		JMenuBar menuBar;
-		JMenu menu;
+		JMenu menuAbout, menuFile;
+		JMenuItem itemExit;
 
 		menuBar = new JMenuBar();
-		menu = new JMenu("About");
-		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
-		menuBar.add(menu);
+		menuBar.setBounds(0, 0, 230, 21);
 
-		motherPanel.add(menuBar, BorderLayout.NORTH);
+		menuFile = new JMenu("File");
+		menuFile.setMnemonic(KeyEvent.VK_F);
+
+		itemExit = new JMenuItem("Exit", KeyEvent.VK_E);
+		itemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == itemExit)
+					System.exit(0);
+			}
+		});
+		menuFile.add(itemExit);
+
+		menuAbout = new JMenu("About");
+		menuAbout.setMnemonic(KeyEvent.VK_A);
+		menuAbout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(motherPanel,
+						"Design by Trần Xuân Nam\nCopyright © 1995, 2015 Oracle and/or its affiliates. All rights reserved.",
+						"About author", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		menuBar.add(menuFile);
+		menuBar.add(menuAbout);
+
+		this.setJMenuBar(menuBar);
 		motherPanel.add(textPanel);
 		motherPanel.add(numberButtonsPanel);
 		motherPanel.add(calculationButtonPanel);
