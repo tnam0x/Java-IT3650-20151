@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -17,7 +18,7 @@ import javax.swing.WindowConstants;
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField resultJText;
-	//private JTextField show1, show2;
+	// private JTextField show1, show2;
 	private double tempNumbers1 = 0;
 	private double tempNumbers2 = 0;
 	private byte function = -1;
@@ -43,8 +44,8 @@ public class SimpleCalculate extends JFrame {
 	 */
 	public SimpleCalculate() {
 		setTitle("Calculator");
-		setSize(240, 330);
-		setResizable(true);
+		setSize(230, 330);
+		setResizable(false);
 		setLocationByPlatform(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -68,21 +69,19 @@ public class SimpleCalculate extends JFrame {
 		resultJText.setDisabledTextColor(Color.RED);
 		resultJText.setBorder(BorderFactory.createLoweredBevelBorder());
 
-		/*show1 = new JTextField("0");
-		show1.setPreferredSize(new Dimension(50, 25));
-		show1.setBackground(Color.WHITE);
-		show1.setEnabled(false);
-		show1.setHorizontalAlignment(4);
-		show1.setDisabledTextColor(Color.RED);
-		show1.setBorder(BorderFactory.createLoweredBevelBorder());
-
-		show2 = new JTextField("0");
-		show2.setPreferredSize(new Dimension(50, 25));
-		show2.setBackground(Color.WHITE);
-		show2.setEnabled(false);
-		show2.setHorizontalAlignment(4);
-		show2.setDisabledTextColor(Color.RED);
-		show2.setBorder(BorderFactory.createLoweredBevelBorder());*/
+		/*
+		 * show1 = new JTextField("0"); show1.setPreferredSize(new Dimension(50,
+		 * 25)); show1.setBackground(Color.WHITE); show1.setEnabled(false);
+		 * show1.setHorizontalAlignment(4);
+		 * show1.setDisabledTextColor(Color.RED);
+		 * show1.setBorder(BorderFactory.createLoweredBevelBorder());
+		 * 
+		 * show2 = new JTextField("0"); show2.setPreferredSize(new Dimension(50,
+		 * 25)); show2.setBackground(Color.WHITE); show2.setEnabled(false);
+		 * show2.setHorizontalAlignment(4);
+		 * show2.setDisabledTextColor(Color.RED);
+		 * show2.setBorder(BorderFactory.createLoweredBevelBorder());
+		 */
 
 		JPanel motherPanel = new JPanel();
 		motherPanel.setLayout(new BoxLayout(motherPanel, BoxLayout.Y_AXIS));
@@ -90,11 +89,12 @@ public class SimpleCalculate extends JFrame {
 		JPanel textPanel = new JPanel();
 		textPanel.setPreferredSize(new Dimension());
 		textPanel.add(resultJText);
-		/*textPanel.add(show1);
-		textPanel.add(show2);*/
+		/*
+		 * textPanel.add(show1); textPanel.add(show2);
+		 */
 
 		JPanel numberButtonsPanel = new JPanel();
-		numberButtonsPanel.setPreferredSize(new Dimension(160, 80));
+		numberButtonsPanel.setPreferredSize(new Dimension(160, 70));
 		for (int i = 9; i >= 0; i--)
 			numberButtonsPanel.add(numberButtons[i]);
 
@@ -166,8 +166,15 @@ public class SimpleCalculate extends JFrame {
 				calculate();
 				recentEnter = true;
 				recentFunction = false;
-			} else
-				resultJText.setText("ERROR");
+			} else {
+				JOptionPane.showMessageDialog(null, "Please enter a number!", "Error", JOptionPane.ERROR_MESSAGE);
+				/*resultJText.setText("0");
+				tempNumbers1 = 0;
+				tempNumbers1 = 0;
+				function = -1;
+				recentEnter = false;
+				recentFunction = false;*/
+			}
 		}
 	}
 
@@ -176,8 +183,9 @@ public class SimpleCalculate extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			resultJText.setText("0");
-			/*show1.setText("0");
-			show2.setText("0");*/
+			/*
+			 * show1.setText("0"); show2.setText("0");
+			 */
 			tempNumbers1 = 0;
 			tempNumbers1 = 0;
 			function = -1;
@@ -272,8 +280,9 @@ public class SimpleCalculate extends JFrame {
 
 	public void calculate() {
 		tempNumbers2 = Double.parseDouble(resultJText.getText());
-		/*show1.setText(tempNumbers1 + "");
-		show2.setText(tempNumbers2 + "");*/
+		/*
+		 * show1.setText(tempNumbers1 + ""); show2.setText(tempNumbers2 + "");
+		 */
 		if (function == 0)
 			resultJText.setText(Double.toString(tempNumbers1 * tempNumbers2));
 		else if (function == 1)
