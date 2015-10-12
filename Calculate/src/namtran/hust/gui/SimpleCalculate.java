@@ -1,5 +1,6 @@
 package namtran.hust.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -10,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -123,11 +126,20 @@ public class SimpleCalculate extends JFrame {
 		addButton.addActionListener(new AddButton());
 		substractButton.addActionListener(new SubstractButton());
 
+		JMenuBar menuBar;
+		JMenu menu;
+
+		menuBar = new JMenuBar();
+		menu = new JMenu("About");
+		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
+		menuBar.add(menu);
+
+		motherPanel.add(menuBar, BorderLayout.NORTH);
 		motherPanel.add(textPanel);
 		motherPanel.add(numberButtonsPanel);
 		motherPanel.add(calculationButtonPanel);
 		motherPanel.add(functionButtonPanel);
-		add(motherPanel);
+		setContentPane(motherPanel);
 	}
 
 	private class NumberButtonsAction implements ActionListener {
@@ -168,12 +180,10 @@ public class SimpleCalculate extends JFrame {
 				recentFunction = false;
 			} else {
 				JOptionPane.showMessageDialog(null, "Please enter a number!", "Error", JOptionPane.ERROR_MESSAGE);
-				/*resultJText.setText("0");
-				tempNumbers1 = 0;
-				tempNumbers1 = 0;
-				function = -1;
-				recentEnter = false;
-				recentFunction = false;*/
+				/*
+				 * resultJText.setText("0"); tempNumbers1 = 0; tempNumbers1 = 0;
+				 * function = -1; recentEnter = false; recentFunction = false;
+				 */
 			}
 		}
 	}
