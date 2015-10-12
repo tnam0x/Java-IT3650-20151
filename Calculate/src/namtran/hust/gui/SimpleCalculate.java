@@ -16,7 +16,8 @@ import javax.swing.WindowConstants;
 
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JTextField resultJText, show1, show2;
+	private JTextField resultJText;
+	//private JTextField show1, show2;
 	private double tempNumbers1 = 0;
 	private double tempNumbers2 = 0;
 	private byte function = -1;
@@ -41,8 +42,8 @@ public class SimpleCalculate extends JFrame {
 	 * Create the frame.
 	 */
 	public SimpleCalculate() {
-		setTitle("Calculate");
-		setSize(200, 350);
+		setTitle("Calculator");
+		setSize(240, 330);
 		setResizable(true);
 		setLocationByPlatform(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +68,7 @@ public class SimpleCalculate extends JFrame {
 		resultJText.setDisabledTextColor(Color.RED);
 		resultJText.setBorder(BorderFactory.createLoweredBevelBorder());
 
-		show1 = new JTextField("0");
+		/*show1 = new JTextField("0");
 		show1.setPreferredSize(new Dimension(50, 25));
 		show1.setBackground(Color.WHITE);
 		show1.setEnabled(false);
@@ -81,7 +82,7 @@ public class SimpleCalculate extends JFrame {
 		show2.setEnabled(false);
 		show2.setHorizontalAlignment(4);
 		show2.setDisabledTextColor(Color.RED);
-		show2.setBorder(BorderFactory.createLoweredBevelBorder());
+		show2.setBorder(BorderFactory.createLoweredBevelBorder());*/
 
 		JPanel motherPanel = new JPanel();
 		motherPanel.setLayout(new BoxLayout(motherPanel, BoxLayout.Y_AXIS));
@@ -89,8 +90,8 @@ public class SimpleCalculate extends JFrame {
 		JPanel textPanel = new JPanel();
 		textPanel.setPreferredSize(new Dimension());
 		textPanel.add(resultJText);
-		textPanel.add(show1);
-		textPanel.add(show2);
+		/*textPanel.add(show1);
+		textPanel.add(show2);*/
 
 		JPanel numberButtonsPanel = new JPanel();
 		numberButtonsPanel.setPreferredSize(new Dimension(160, 80));
@@ -175,8 +176,8 @@ public class SimpleCalculate extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			resultJText.setText("0");
-			show1.setText("0");
-			show2.setText("0");
+			/*show1.setText("0");
+			show2.setText("0");*/
 			tempNumbers1 = 0;
 			tempNumbers1 = 0;
 			function = -1;
@@ -271,8 +272,8 @@ public class SimpleCalculate extends JFrame {
 
 	public void calculate() {
 		tempNumbers2 = Double.parseDouble(resultJText.getText());
-		show1.setText(tempNumbers1 + "");
-		show2.setText(tempNumbers2 + "");
+		/*show1.setText(tempNumbers1 + "");
+		show2.setText(tempNumbers2 + "");*/
 		if (function == 0)
 			resultJText.setText(Double.toString(tempNumbers1 * tempNumbers2));
 		else if (function == 1)
