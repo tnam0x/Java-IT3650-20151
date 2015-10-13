@@ -36,6 +36,8 @@ public class Hazchem {
 									String answer = sc.nextLine();
 									if (answer.equals("y"))
 										changeCode(hazchemCode, true);
+									else
+										changeCode(hazchemCode);
 								} else
 									changeCode(hazchemCode);
 								break;
@@ -51,23 +53,23 @@ public class Hazchem {
 			throw new InvalidHazchemCodeException("Hazchem code must have 2-3 characters are valid!");
 	}
 
-	public void changeCode(String codeHazchem, boolean isColor) {
-		this.hazchemCode = codeHazchem;
+	public Hazchem(String hazchemCode) {
+		changeCode(hazchemCode);
+	}
+
+	public void changeCode(String hazchemCode, boolean isColor) {
+		this.hazchemCode = hazchemCode;
 		this.isColor = isColor;
-		if (codeHazchem.length() == 3)
+		if (hazchemCode.length() == 3)
 			this.evacuation = "E";
 		else
 			this.evacuation = "";
 	}
 
-	public Hazchem(String codeHazchem) {
-		changeCode(codeHazchem);
-	}
-
-	public void changeCode(String codeHazchem) {
-		this.hazchemCode = codeHazchem;
+	public void changeCode(String hazchemCode) {
+		this.hazchemCode = hazchemCode;
 		this.isColor = false;
-		if (codeHazchem.length() == 3)
+		if (hazchemCode.length() == 3)
 			this.evacuation = "E";
 		else
 			this.evacuation = "";

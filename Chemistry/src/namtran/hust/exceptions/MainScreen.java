@@ -19,8 +19,8 @@ public class MainScreen {
 				hazchem = new Hazchem(codeHazchem, false);
 				hazchem.getAdvice();
 				display();
-			} catch (InvalidHazchemCodeException iCE) {
-				System.out.println(iCE.getMessage());
+			} catch (InvalidHazchemCodeException e) {
+				System.out.println(e.getMessage());
 			}
 			// comtinue?
 			System.out.print("Is more advice needed [y/n]: ");
@@ -93,12 +93,17 @@ public class MainScreen {
 			sc = new Scanner(System.in);
 			String reply = sc.nextLine();
 			if ("y".equalsIgnoreCase(reply)) {
+				boolean isValid = false;
 				do {
 					System.out.print("Enter new Hazchem code: ");
 					hazchemCode = sc.nextLine();
-					hazchem = new Hazchem(hazchemCode, false);
-					break;
-				} while (true);
+					try {
+						hazchem = new Hazchem(hazchemCode, false);
+						isValid = true;
+					} catch (InvalidHazchemCodeException e) {
+						System.out.println(e.getMessage());
+					}
+				} while (!isValid);
 			}
 			System.out.print("Enter new file name to save current hazchem code: ");
 			sc = new Scanner(System.in);
