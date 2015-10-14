@@ -93,7 +93,7 @@ public class SimpleCalculate extends JFrame {
 		for (int i = 9; i >= 0; i--)
 			numberButtonsPanel.add(numberButtons[i]);
 
-		// function panel
+		// calculation panel
 		JPanel calculationButtonPanel = new JPanel();
 		calculationButtonPanel.setPreferredSize(new Dimension());
 		calculationButtonPanel.add(multiplyButton);
@@ -101,6 +101,7 @@ public class SimpleCalculate extends JFrame {
 		calculationButtonPanel.add(addButton);
 		calculationButtonPanel.add(substractButton);
 
+		// function panel
 		JPanel functionButtonPanel = new JPanel();
 		functionButtonPanel.setPreferredSize(new Dimension());
 		functionButtonPanel.add(enterButton);
@@ -130,7 +131,6 @@ public class SimpleCalculate extends JFrame {
 
 		menuFile = new JMenu("File");
 		menuFile.setMnemonic(KeyEvent.VK_F);
-
 		itemExit = new JMenuItem("Exit", KeyEvent.VK_E);
 		itemExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,6 +151,7 @@ public class SimpleCalculate extends JFrame {
 			}
 		});
 
+		// add menu to menu panel
 		menuBar.add(menuFile);
 		menuBar.add(menuAbout);
 
