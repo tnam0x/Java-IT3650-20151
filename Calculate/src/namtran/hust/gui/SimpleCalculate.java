@@ -146,7 +146,7 @@ public class SimpleCalculate extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(motherPanel,
-						"Design by Trần Xuân Nam\nCopyright © 1995, 2015 Oracle and/or its affiliates. All rights reserved.",
+						"Designed by Trần Xuân Nam\nCopyright © 1995, 2015 Oracle and/or its affiliates. All rights reserved.",
 						"About author", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
