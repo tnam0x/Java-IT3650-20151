@@ -24,6 +24,7 @@ import javax.swing.WindowConstants;
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField resultJText;
+	private JPanel motherPanel;
 	private double tempNumbers1 = 0;
 	private double tempNumbers2 = 0;
 	private byte function = -1;
@@ -48,7 +49,7 @@ public class SimpleCalculate extends JFrame {
 	 * Create the frame.
 	 */
 	public SimpleCalculate() {
-		// create frame
+		// create main frame
 		setTitle("Calculator");
 		setLocationByPlatform(isLocationByPlatform());
 		setSize(230, 330);
@@ -79,7 +80,7 @@ public class SimpleCalculate extends JFrame {
 		resultJText.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		// mother panel
-		JPanel motherPanel = new JPanel();
+		motherPanel = new JPanel();
 		motherPanel.setLayout(new BoxLayout(motherPanel, BoxLayout.Y_AXIS));
 
 		// text panel
@@ -203,7 +204,7 @@ public class SimpleCalculate extends JFrame {
 				recentEnter = true;
 				recentFunction = false;
 			} else {
-				JOptionPane.showMessageDialog(null, "Please enter a number!", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(motherPanel, "Please enter a number!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
