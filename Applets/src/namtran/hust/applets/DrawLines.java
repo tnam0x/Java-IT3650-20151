@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-public class DrawLine extends Applet{
+public class DrawLines extends Applet{
 	private static final long serialVersionUID = 1L;
 	int[] x = {50,80,200,400};
 	int[] y = {30,120,270,350};
