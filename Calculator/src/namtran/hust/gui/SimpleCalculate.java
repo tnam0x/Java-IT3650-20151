@@ -72,6 +72,7 @@ public class SimpleCalculate extends JFrame {
 
 		// create text field to display
 		resultJText = new JTextField("0");
+		resultJText.setBounds(22, 11, 180, 25);
 		resultJText.setPreferredSize(new Dimension(180, 25));
 		resultJText.setBackground(Color.WHITE);
 		resultJText.setEnabled(false);
@@ -81,21 +82,24 @@ public class SimpleCalculate extends JFrame {
 
 		// mother panel
 		motherPanel = new JPanel();
-		motherPanel.setLayout(new BoxLayout(motherPanel, BoxLayout.Y_AXIS));
 
 		// text panel
 		JPanel textPanel = new JPanel();
+		textPanel.setBounds(0, 0, 224, 52);
 		textPanel.setPreferredSize(new Dimension(0, 0));
+		textPanel.setLayout(null);
 		textPanel.add(resultJText);
 
 		// number button panel
 		JPanel numberButtonsPanel = new JPanel();
+		numberButtonsPanel.setBounds(0, 52, 224, 122);
 		numberButtonsPanel.setPreferredSize(new Dimension(160, 70));
 		for (int i = 9; i >= 0; i--)
 			numberButtonsPanel.add(numberButtons[i]);
 
 		// calculation panel
 		JPanel calculationButtonPanel = new JPanel();
+		calculationButtonPanel.setBounds(0, 174, 224, 43);
 		calculationButtonPanel.setPreferredSize(new Dimension());
 		calculationButtonPanel.add(multiplyButton);
 		calculationButtonPanel.add(divideButton);
@@ -104,6 +108,7 @@ public class SimpleCalculate extends JFrame {
 
 		// function panel
 		JPanel functionButtonPanel = new JPanel();
+		functionButtonPanel.setBounds(0, 216, 224, 62);
 		functionButtonPanel.setPreferredSize(new Dimension());
 		functionButtonPanel.add(enterButton);
 		functionButtonPanel.add(cButton);
@@ -158,6 +163,7 @@ public class SimpleCalculate extends JFrame {
 
 		// add to mother panel
 		this.setJMenuBar(menuBar);
+		motherPanel.setLayout(null);
 		motherPanel.add(textPanel);
 		motherPanel.add(numberButtonsPanel);
 		motherPanel.add(calculationButtonPanel);
