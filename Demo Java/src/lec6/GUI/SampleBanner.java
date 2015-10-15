@@ -8,16 +8,13 @@ public class SampleBanner extends Applet implements Runnable {
 	private static final long serialVersionUID = -3938815916804158680L;
 	String str = "This is a simple Banner ";
 	Thread t;
-	boolean b;
 
 	public void init() {
 		setBackground(Color.BLUE);
-		setForeground(Color.yellow);
 	}
 
 	public void start() {
 		t = new Thread(this);
-		b = false;
 		t.start();
 	}
 
@@ -26,6 +23,7 @@ public class SampleBanner extends Applet implements Runnable {
 		char ch;
 		for (;;) {
 			try {
+				// loop text
 				repaint();
 				Thread.sleep(100);
 				ch = str.charAt(0);
