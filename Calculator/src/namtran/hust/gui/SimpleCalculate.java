@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,7 +18,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.Font;
 
 public class SimpleCalculate extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -48,14 +50,19 @@ public class SimpleCalculate extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SimpleCalculate() {
+	public SimpleCalculate(){
 		// create main frame
 		setTitle("Calculator");
-		setLocationByPlatform(isLocationByPlatform());
+		setLocationByPlatform(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			try {
+				UIManager.setLookAndFeel(new NimbusLookAndFeel());
+			} catch (UnsupportedLookAndFeelException e) {
+				System.out.println(e.getMessage());
+			}
 		setSize(230, 330);
 		setResizable(false);
 		setLocationByPlatform(true);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 
 		// create number buttons
@@ -64,14 +71,25 @@ public class SimpleCalculate extends JFrame {
 			numberButtons[i] = new JButton(Integer.toString(i));
 
 		JButton enterButton = new JButton("Enter");
+		enterButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton cButton = new JButton("C");
-		JButton multiplyButton = new JButton("*");
+		cButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton signalButton = new JButton("+/-");
+		signalButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton commaButton = new JButton(".");
+		commaButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton multiplyButton = new JButton("x");
+		multiplyButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton divideButton = new JButton("/");
+		divideButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton addButton = new JButton("+");
+		addButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton substractButton = new JButton("-");
+		substractButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 
 		// create text field to display
 		resultJText = new JTextField("0");
+		resultJText.setFont(new Font("Lucida Bright", Font.PLAIN, 12));
 		resultJText.setBounds(22, 11, 180, 25);
 		resultJText.setPreferredSize(new Dimension(180, 25));
 		resultJText.setBackground(Color.WHITE);
@@ -96,6 +114,8 @@ public class SimpleCalculate extends JFrame {
 		numberButtonsPanel.setPreferredSize(new Dimension(160, 70));
 		for (int i = 9; i >= 0; i--)
 			numberButtonsPanel.add(numberButtons[i]);
+		numberButtonsPanel.add(commaButton);
+		numberButtonsPanel.add(signalButton);
 
 		// calculation panel
 		JPanel calculationButtonPanel = new JPanel();
@@ -112,7 +132,7 @@ public class SimpleCalculate extends JFrame {
 		functionButtonPanel.setPreferredSize(new Dimension());
 		functionButtonPanel.add(enterButton);
 		functionButtonPanel.add(cButton);
-		
+
 		// add event
 		NumberButtonsAction[] numberButtonActions = new NumberButtonsAction[10];
 		for (int i = 9; i >= 0; i--) {
@@ -120,6 +140,8 @@ public class SimpleCalculate extends JFrame {
 			numberButtons[i].addActionListener(numberButtonActions[i]);
 		}
 
+		signalButton.addActionListener(new SignalButton());
+		commaButton.addActionListener(new CommaButton());
 		enterButton.addActionListener(new EnterButton());
 		cButton.addActionListener(new CButton());
 		multiplyButton.addActionListener(new MultiplyButton());
@@ -136,8 +158,10 @@ public class SimpleCalculate extends JFrame {
 		menuBar.setBounds(0, 0, 230, 21);
 
 		menuFile = new JMenu("File");
+		menuFile.setFont(new Font("Segoe Script", Font.PLAIN, 12));
 		menuFile.setMnemonic(KeyEvent.VK_F);
 		itemExit = new JMenuItem("Exit", KeyEvent.VK_E);
+		itemExit.setFont(new Font("Segoe Script", Font.PLAIN, 12));
 		itemExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == itemExit)
@@ -147,6 +171,7 @@ public class SimpleCalculate extends JFrame {
 		menuFile.add(itemExit);
 
 		menuAbout = new JMenu("About");
+		menuAbout.setFont(new Font("Segoe Script", Font.PLAIN, 12));
 		menuAbout.setMnemonic(KeyEvent.VK_A);
 		menuAbout.addMouseListener(new MouseAdapter() {
 			@Override
@@ -192,7 +217,7 @@ public class SimpleCalculate extends JFrame {
 				recentEnter = false;
 			}
 
-			if ((!resultJText.getText().equals("0")) && (!resultJText.getText().equals("0.0")))
+			if ((!resultJText.getText().equals("0")) && !recentEnter)
 				resultJText.setText(resultJText.getText() + c);
 			else {
 				resultJText.setText(c);
@@ -201,16 +226,52 @@ public class SimpleCalculate extends JFrame {
 		}
 	}
 
+	private class SignalButton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String c = resultJText.getText();
+			if (c.equals("0") || c.isEmpty() || c.equals("0.0"))
+				resultJText.setText("-");
+			else if (c.charAt(0) == '-') {
+				c = c.substring(1, c.length());
+				resultJText.setText(c);
+			} else
+				resultJText.setText("-" + c);
+		}
+	}
+
+	private class CommaButton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String c = resultJText.getText();
+			boolean key = true;
+			for (int i = 0; i < c.length(); i++)
+				if (c.charAt(i) == '.') {
+					key = false;
+					break;
+				}
+			if (key) {
+				if (c.equals("0") || c.isEmpty())
+					resultJText.setText("0.");
+				else
+					resultJText.setText(c + ".");
+			}
+		}
+	}
+
 	private class EnterButton implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty()) {
+			if (!resultJText.getText().isEmpty() && !resultJText.getText().equals("-")) {
 				calculate();
 				recentEnter = true;
 				recentFunction = false;
 			} else {
-				JOptionPane.showMessageDialog(motherPanel, "Please enter a number!", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(motherPanel, "Please enter a number!", "Error",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
