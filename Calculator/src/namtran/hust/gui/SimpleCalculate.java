@@ -30,7 +30,8 @@ public class SimpleCalculate extends JFrame {
 	private double tempNumbers1 = 0;
 	private double tempNumbers2 = 0;
 	private byte function = -1;
-	private boolean recentEnter, recentFunction;
+	private String piOrString;
+	private boolean recentEnter, recentFunction, recentSpecialButton;
 
 	/**
 	 * Launch the application.
@@ -50,16 +51,16 @@ public class SimpleCalculate extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SimpleCalculate(){
+	public SimpleCalculate() {
 		// create main frame
 		setTitle("Calculator");
 		setLocationByPlatform(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			try {
-				UIManager.setLookAndFeel(new NimbusLookAndFeel());
-			} catch (UnsupportedLookAndFeelException e) {
-				System.out.println(e.getMessage());
-			}
+		try {
+			UIManager.setLookAndFeel(new NimbusLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			System.out.println(e.getMessage());
+		}
 		setSize(230, 330);
 		setResizable(false);
 		setLocationByPlatform(true);
@@ -74,13 +75,20 @@ public class SimpleCalculate extends JFrame {
 		enterButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton cButton = new JButton("C");
 		cButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
-		JButton signalButton = new JButton("+/-");
+		JButton signalButton = new JButton("±");
 		signalButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton squareButton = new JButton("x²");
+		squareButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton squareRootButton = new JButton("√");
+		squareRootButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		JButton piButton = new JButton("π");
+		piButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton commaButton = new JButton(".");
 		commaButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+
 		JButton multiplyButton = new JButton("x");
 		multiplyButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
-		JButton divideButton = new JButton("/");
+		JButton divideButton = new JButton("÷");
 		divideButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		JButton addButton = new JButton("+");
 		addButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
@@ -114,8 +122,11 @@ public class SimpleCalculate extends JFrame {
 		numberButtonsPanel.setPreferredSize(new Dimension(160, 70));
 		for (int i = 9; i >= 0; i--)
 			numberButtonsPanel.add(numberButtons[i]);
-		numberButtonsPanel.add(commaButton);
 		numberButtonsPanel.add(signalButton);
+		numberButtonsPanel.add(squareButton);
+		numberButtonsPanel.add(squareRootButton);
+		numberButtonsPanel.add(piButton);
+		numberButtonsPanel.add(commaButton);
 
 		// calculation panel
 		JPanel calculationButtonPanel = new JPanel();
@@ -134,16 +145,21 @@ public class SimpleCalculate extends JFrame {
 		functionButtonPanel.add(cButton);
 
 		// add event
-		NumberButtonsAction[] numberButtonActions = new NumberButtonsAction[10];
+		NumberButtonsAction[] numberButtonActions = new NumberButtonsAction[11];
 		for (int i = 9; i >= 0; i--) {
 			numberButtonActions[i] = new NumberButtonsAction(numberButtons[i]);
 			numberButtons[i].addActionListener(numberButtonActions[i]);
 		}
+		numberButtonActions[10] = new NumberButtonsAction(piButton);
+		piButton.addActionListener(numberButtonActions[10]);
 
 		signalButton.addActionListener(new SignalButton());
+		squareButton.addActionListener(new SquareButton());
+		squareRootButton.addActionListener(new SquareRootButton());
 		commaButton.addActionListener(new CommaButton());
 		enterButton.addActionListener(new EnterButton());
 		cButton.addActionListener(new CButton());
+
 		multiplyButton.addActionListener(new MultiplyButton());
 		divideButton.addActionListener(new DivideButton());
 		addButton.addActionListener(new AddButton());
@@ -217,11 +233,12 @@ public class SimpleCalculate extends JFrame {
 				recentEnter = false;
 			}
 
-			if ((!resultJText.getText().equals("0")) && !recentEnter)
-				resultJText.setText(resultJText.getText() + c);
+			String s = resultJText.getText();
+			if ((!s.equals("0")) && !s.equals("∞") && !recentEnter && !recentSpecialButton)
+				resultJText.setText(s + c);
 			else {
 				resultJText.setText(c);
-				// actionPerformed(e);
+				recentSpecialButton = false;
 			}
 		}
 	}
@@ -230,14 +247,16 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String c = resultJText.getText();
-			if (c.equals("0") || c.isEmpty() || c.equals("0.0"))
-				resultJText.setText("-");
-			else if (c.charAt(0) == '-') {
-				c = c.substring(1, c.length());
-				resultJText.setText(c);
-			} else
-				resultJText.setText("-" + c);
+			String s = resultJText.getText();
+			if (!s.equals("∞")) {
+				if (s.equals("0") || s.equals("0.0"))
+					resultJText.setText("-");
+				else if (s.charAt(0) == '-') {
+					s = s.substring(1, s.length());
+					resultJText.setText(s);
+				} else
+					resultJText.setText("-" + s);
+			}
 		}
 	}
 
@@ -245,19 +264,57 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String c = resultJText.getText();
-			boolean key = true;
-			for (int i = 0; i < c.length(); i++)
-				if (c.charAt(i) == '.') {
-					key = false;
-					break;
+			String s = resultJText.getText();
+			boolean isValid = true;
+			if (!s.equals("∞") && !s.contains("π")) {
+				for (int i = 0; i < s.length(); i++)
+					if (s.charAt(i) == '.') {
+						isValid = false;
+						break;
+					}
+				if (isValid) {
+					if (s.equals("0"))
+						resultJText.setText("0.");
+					else
+						resultJText.setText(s + ".");
 				}
-			if (key) {
-				if (c.equals("0") || c.isEmpty())
-					resultJText.setText("0.");
-				else
-					resultJText.setText(c + ".");
 			}
+		}
+	}
+
+	private class SquareButton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s = resultJText.getText();
+			if (!s.equals("∞") && !s.equals("-")) {
+				if (!s.contains("π")) {
+					double d = Double.parseDouble(s) * Double.parseDouble(s);
+					resultJText.setText(String.valueOf(d));
+					recentSpecialButton = true;
+				} else if (s.equals("π") || s.equals("-π")) {
+					resultJText.setText(String.valueOf(Math.PI * Math.PI));
+					recentSpecialButton = true;
+				} else
+					JOptionPane.showMessageDialog(motherPanel, "Invalid input!", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else
+				JOptionPane.showMessageDialog(motherPanel, "Invalid input!", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private class SquareRootButton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s = resultJText.getText();
+			if (!s.equals("∞") && s.charAt(0) != '-' && !s.contains("π")) {
+				double d = Math.sqrt(Double.parseDouble(s));
+				resultJText.setText(String.valueOf(d));
+				recentSpecialButton = true;
+			} else if (s.equals("π"))
+				resultJText.setText(String.valueOf(Math.sqrt(Math.PI)));
+			else
+				JOptionPane.showMessageDialog(motherPanel, "Invalid input!", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -265,13 +322,15 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty() && !resultJText.getText().equals("-")) {
-				calculate();
-				recentEnter = true;
-				recentFunction = false;
-			} else {
-				JOptionPane.showMessageDialog(motherPanel, "Please enter a number!", "Error",
-						JOptionPane.ERROR_MESSAGE);
+			if (checkTextField()) {
+				if (!piOrString.equals("-")) {
+					calculate();
+					recentEnter = true;
+					recentFunction = false;
+				} else {
+					JOptionPane.showMessageDialog(motherPanel, "Please enter a number!", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
@@ -293,15 +352,16 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty()) {
+			checkTextField();
+			if (!piOrString.equals("∞")) {
 				if (recentFunction)
 					calculate();
 				if (tempNumbers1 == 0 || recentEnter) {
-					tempNumbers1 = Double.parseDouble(resultJText.getText());
-					resultJText.setText("");
+					tempNumbers1 = Double.parseDouble(piOrString);
+					resultJText.setText("0");
 					recentEnter = false;
 				} else {
-					resultJText.setText("");
+					resultJText.setText("0");
 				}
 				recentFunction = true;
 			}
@@ -313,15 +373,16 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty()) {
+			checkTextField();
+			if (!resultJText.getText().equals("∞")) {
 				if (recentFunction)
 					calculate();
 				if (tempNumbers1 == 0 || recentEnter) {
-					tempNumbers1 = Double.parseDouble(resultJText.getText());
-					resultJText.setText("");
+					tempNumbers1 = Double.parseDouble(piOrString);
+					resultJText.setText("0");
 					recentEnter = false;
 				} else {
-					resultJText.setText("");
+					resultJText.setText("0");
 				}
 				recentFunction = true;
 			}
@@ -333,15 +394,16 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty()) {
+			checkTextField();
+			if (!piOrString.equals("∞")) {
 				if (recentFunction)
 					calculate();
 				if (tempNumbers1 == 0 || recentEnter) {
-					tempNumbers1 = Double.parseDouble(resultJText.getText());
-					resultJText.setText("");
+					tempNumbers1 = Double.parseDouble(piOrString);
+					resultJText.setText("0");
 					recentEnter = false;
 				} else {
-					resultJText.setText("");
+					resultJText.setText("0");
 				}
 				recentFunction = true;
 			}
@@ -353,15 +415,16 @@ public class SimpleCalculate extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!resultJText.getText().isEmpty()) {
+			checkTextField();
+			if (!piOrString.equals("∞")) {
 				if (recentFunction)
 					calculate();
 				if (tempNumbers1 == 0 || recentEnter) {
-					tempNumbers1 = Double.parseDouble(resultJText.getText());
-					resultJText.setText("");
+					tempNumbers1 = Double.parseDouble(piOrString);
+					resultJText.setText("0");
 					recentEnter = false;
 				} else {
-					resultJText.setText("");
+					resultJText.setText("0");
 				}
 				recentFunction = true;
 			}
@@ -373,18 +436,46 @@ public class SimpleCalculate extends JFrame {
 	 * calculate
 	 */
 	public void calculate() {
-		tempNumbers2 = Double.parseDouble(resultJText.getText());
+		tempNumbers2 = Double.parseDouble(piOrString);
 		if (function == 0)
 			resultJText.setText(Double.toString(tempNumbers1 * tempNumbers2));
-		else if (function == 1)
-			resultJText.setText(Double.toString((tempNumbers1) / tempNumbers2));
+
+		else if (function == 1) {
+			if (tempNumbers2 != 0)
+				resultJText.setText(Double.toString((tempNumbers1) / tempNumbers2));
+			else
+				resultJText.setText("∞");
+		}
+
 		else if (function == 2)
 			resultJText.setText(Double.toString(tempNumbers1 + tempNumbers2));
+
 		else if (function == 3)
 			resultJText.setText(Double.toString(tempNumbers1 - tempNumbers2));
+
 		else
 			resultJText.setText(String.valueOf(tempNumbers2));
-		tempNumbers1 = Double.parseDouble(resultJText.getText());
+
+		if (!resultJText.getText().equals("∞"))
+			tempNumbers1 = Double.parseDouble(resultJText.getText());
+		else
+			tempNumbers1 = 0;
 		tempNumbers2 = 0;
+	}
+
+	public boolean checkTextField() {
+		piOrString = resultJText.getText();
+		boolean isValid = false;
+		if (piOrString.contains("π") && piOrString.length() == 1) {
+			piOrString = Double.toString(Math.PI);
+			isValid = true;
+		} else if (piOrString.contains("-π") && piOrString.length() == 2) {
+			piOrString = Double.toString(-Math.PI);
+			isValid = true;
+		} else if (!piOrString.contains("π"))
+			isValid = true;
+		else
+			JOptionPane.showMessageDialog(motherPanel, "Invalid input!", "ERROR", JOptionPane.ERROR_MESSAGE);
+		return isValid;
 	}
 }
