@@ -63,7 +63,6 @@ public class SimpleCalculate extends JFrame {
 		}
 		setSize(230, 330);
 		setResizable(false);
-		setLocationByPlatform(true);
 		setVisible(true);
 
 		// create number buttons
