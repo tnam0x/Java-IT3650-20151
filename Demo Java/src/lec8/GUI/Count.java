@@ -1,4 +1,4 @@
-package lec6.GUI;
+package lec8.GUI;
 
 import java.awt.EventQueue;
 import java.awt.Font;

@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package lec6.GUI;
+package lec8.GUI;
 
 import java.awt.Color;
 import java.awt.Container;

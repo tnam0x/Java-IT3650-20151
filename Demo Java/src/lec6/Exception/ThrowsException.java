@@ -1,4 +1,4 @@
-package lec5.Exception;
+package lec6.Exception;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

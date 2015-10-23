@@ -1,4 +1,4 @@
-package lec6.GUI;
+package lec8.GUI;
 
 import java.applet.Applet;
 import java.awt.Color;

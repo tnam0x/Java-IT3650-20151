@@ -1,4 +1,4 @@
-package lec5.Exception;
+package lec6.Exception;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
