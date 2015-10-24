@@ -36,4 +36,9 @@ public class Account implements IAccount {
 		return this.permission;
 	}
 
+	public String toString() {
+		return userID + " " + password + " " + permission;
+
+	}
+
 }
