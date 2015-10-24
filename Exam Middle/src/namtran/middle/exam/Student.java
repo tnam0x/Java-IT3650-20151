@@ -1,4 +1,4 @@
-package namtran.exam.middle;
+package namtran.middle.exam;
 
 import java.util.Scanner;
 
