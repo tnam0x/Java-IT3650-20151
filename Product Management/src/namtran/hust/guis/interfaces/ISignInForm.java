@@ -1,4 +1,4 @@
-package namtran.hust.guis.view;
+package namtran.hust.guis.interfaces;
 
 public interface ISignInForm {
 	public String getUserNameOnSignInForm();

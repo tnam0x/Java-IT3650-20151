@@ -1,7 +1,6 @@
 package namtran.hust.guis.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,29 +14,28 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
+import namtran.hust.guis.interfaces.ISignInForm;
 import namtran.hust.guis.model.AccountList;
 
-public class SignInForm extends JFrame implements ISignInForm {
+public class SignInForm extends JFrame implements ISignInForm, Runnable {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfUserName;
 	private JPasswordField tfPassword;
+	private static SignInForm signInForm;
+	private static Thread t1;
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignInForm frame = new SignInForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-			}
-		});
+		t1 = new Thread(new SignInForm());
+		t1.start();
+	}
+	@Override
+	public void run() {
+		signInForm = new SignInForm();
+		signInForm.setVisible(true);
 	}
 
 	public SignInForm() {
-		setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Sign in");
@@ -120,9 +118,13 @@ public class SignInForm extends JFrame implements ISignInForm {
 				String password = getPasswordOnSignInForm();
 				
 				int check = accList.check(userName, password);
-				if (check == 1)
+				if (check == 1) {
 					JOptionPane.showMessageDialog(SignInForm.this, "Sign in successfully",
 							"Sign in", JOptionPane.INFORMATION_MESSAGE);
+					t1.interrupt();
+					t1 = new Thread(new MainWindow());
+					t1.start();
+				}
 				else if (check == 0)
 					JOptionPane.showMessageDialog(SignInForm.this, "Username or password is invalid!",
 							"Invalid account", JOptionPane.ERROR_MESSAGE);

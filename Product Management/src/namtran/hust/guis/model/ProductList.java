@@ -12,7 +12,17 @@ public class ProductList implements IProductList {
 	private Product product;
 
 	public ProductList() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("product list.txt"))) {
+		readData(null);
+	}
+	
+	public ProductList(String url) {
+		readData(url);
+	}
+
+	public void readData(String url) {
+		if(url == null)
+			url = "product list.txt";
+		try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
 			String line;
 			StringTokenizer readData;
 			proList = new ArrayList<Product>();
@@ -31,7 +41,7 @@ public class ProductList implements IProductList {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
 	@Override
 	public ArrayList<Product> getProduct() {
 		return proList;
