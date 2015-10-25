@@ -15,7 +15,7 @@ public class AccountList implements IAccountList {
 	private Account account;
 
 	public AccountList() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("D:\\account.txt"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("account list.txt"))) {
 			String line;
 			StringTokenizer readData;
 			accountList = new ArrayList<Account>();
@@ -36,6 +36,7 @@ public class AccountList implements IAccountList {
 		}
 	}
 
+	// add account
 	@Override
 	public void addAccount(IAccount iAccount) {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("account list.txt", true))) {
@@ -45,6 +46,7 @@ public class AccountList implements IAccountList {
 		}
 	}
 
+	// check username and password
 	@Override
 	public int check(String userName, String password) {
 		int result = 0;

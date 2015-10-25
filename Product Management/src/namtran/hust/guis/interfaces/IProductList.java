@@ -1,5 +1,9 @@
 package namtran.hust.guis.interfaces;
 
+import java.util.ArrayList;
+
+import namtran.hust.guis.model.Product;
+
 public interface IProductList {
-	public IProduct[] getIProduct();
+	public ArrayList<Product> getProduct();
 }

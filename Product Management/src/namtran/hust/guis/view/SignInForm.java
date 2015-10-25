@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
@@ -20,7 +21,7 @@ public class SignInForm extends JFrame implements ISignInForm {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfUserName;
-	private JTextField tfPassword;
+	private JPasswordField tfPassword;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -29,7 +30,7 @@ public class SignInForm extends JFrame implements ISignInForm {
 					SignInForm frame = new SignInForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					System.out.println(e);
 				}
 			}
 		});
@@ -67,17 +68,21 @@ public class SignInForm extends JFrame implements ISignInForm {
 		motherPanel.add(lblPassword);
 
 		tfUserName = new JTextField();
+		tfUserName.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 15));
 		tfUserName.setForeground(Color.RED);
 		tfUserName.setBounds(117, 10, 196, 30);
 		tfUserName.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		tfUserName.setColumns(10);
 		motherPanel.add(tfUserName);
 
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
+		tfPassword.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 15));
 		tfPassword.setForeground(Color.RED);
 		tfPassword.setBounds(117, 47, 196, 30);
 		tfPassword.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		tfPassword.setColumns(10);
+		tfPassword.setEchoChar('⊹');
+		tfPassword.setActionCommand("Sign in");
 		motherPanel.add(tfPassword);
 
 		JButton btnSignIn = new JButton("Sign in");
@@ -85,6 +90,7 @@ public class SignInForm extends JFrame implements ISignInForm {
 		btnSignIn.setForeground(Color.BLACK);
 		btnSignIn.setBounds(60, 97, 109, 30);
 		btnSignIn.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
+		btnSignIn.setActionCommand("Sign in");
 		motherPanel.add(btnSignIn);
 
 		JButton btnCancel = new JButton("Cancel");
@@ -94,33 +100,37 @@ public class SignInForm extends JFrame implements ISignInForm {
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		motherPanel.add(btnCancel);
 
+		tfPassword.addActionListener(new EventHandler());
 		btnSignIn.addActionListener(new EventHandler());
 		btnCancel.addActionListener(new EventHandler());
 	}
 
 	private class EventHandler implements ActionListener {
-		String userName = getUserNameOnSignInForm();
-		String password = getPasswordOnSignInForm();
+		
 		String s;
 		AccountList accList;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			s = e.getActionCommand();
+			// enter on JPasswordField or click button Sign in to sign in
 			if (s.equals("Sign in")) {
 				accList = new AccountList();
+				String userName = getUserNameOnSignInForm();
+				String password = getPasswordOnSignInForm();
 				
 				int check = accList.check(userName, password);
 				if (check == 1)
 					JOptionPane.showMessageDialog(SignInForm.this, "Sign in successfully",
 							"Sign in", JOptionPane.INFORMATION_MESSAGE);
-				if (check == 0)
+				else if (check == 0)
 					JOptionPane.showMessageDialog(SignInForm.this, "Username or password is invalid!",
 							"Invalid account", JOptionPane.ERROR_MESSAGE);
-				if(check == -1)
+				else if(check == -1)
 					JOptionPane.showMessageDialog(SignInForm.this, "No any account has registered yet, please create an account!",
 							"Invalid account", JOptionPane.ERROR_MESSAGE);
 			}
+			// click button cancel
 			if (s.equals("Cancel")) {
 				System.exit(0);
 			}
@@ -134,6 +144,6 @@ public class SignInForm extends JFrame implements ISignInForm {
 
 	@Override
 	public String getPasswordOnSignInForm() {
-		return tfPassword.getText();
+		return String.valueOf(tfPassword.getPassword());
 	}
 }

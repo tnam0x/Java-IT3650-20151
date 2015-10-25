@@ -2,27 +2,29 @@ package namtran.hust.guis.model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import namtran.hust.guis.interfaces.IProduct;
 import namtran.hust.guis.interfaces.IProductList;
 
 public class ProductList implements IProductList {
-	private IProduct[] iProduct;
+	private ArrayList<Product> proList;
 	private Product product;
-	private int numbersOfProduct = -1;
 
 	public ProductList() {
 		try (BufferedReader reader = new BufferedReader(new FileReader("product list.txt"))) {
 			String line;
 			StringTokenizer readData;
+			proList = new ArrayList<Product>();
+			
 			while ((line = reader.readLine()) != null) {
 				readData = new StringTokenizer(line, "|");
 				while (readData.hasMoreTokens()) {
+					product = new Product();
 					product.setProductID(readData.nextToken());
-					product.setProductID(readData.nextToken());
+					product.setProductName(readData.nextToken());
 					product.setAmount(Integer.parseInt(readData.nextToken()));
-					iProduct[++numbersOfProduct] = product;
+					proList.add(product);
 				}
 			}
 		} catch (Exception e) {
@@ -31,8 +33,8 @@ public class ProductList implements IProductList {
 	}
 
 	@Override
-	public IProduct[] getIProduct() {
-		return iProduct;
+	public ArrayList<Product> getProduct() {
+		return proList;
 	}
 
 }

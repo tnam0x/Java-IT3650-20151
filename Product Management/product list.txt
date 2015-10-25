@@ -1,0 +1,14 @@
+P1|muối|12
+P2|mắm|42
+P3|gạo|9
+P4|dầu ăn|15
+P5|giấy vệ sinh|21
+P6|dầu rửa bát|7
+P7|BCS|96
+P8|bột canh|59
+P9|bột giặt|71
+P10|xà phòng tắm|69
+P11|kem đánh răng|32
+P12|sữa tắm|44
+P13|dầu gội đầu|89
+P14|khăn tắm|10
