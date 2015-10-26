@@ -27,10 +27,6 @@ public class CreateNewAccountForm extends JFrame {
 	private JRadioButton rdYes;
 	private JRadioButton rdNo;
 
-	public static void main(String[] args) {
-		new CreateNewAccountForm().setVisible(true);
-	}
-
 	public CreateNewAccountForm() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

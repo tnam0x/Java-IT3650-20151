@@ -23,12 +23,10 @@ public class SignInController {
 		accList = new AccountList();
 		result = accList.check(userName, password);
 		currentAccountPermission = accList.getPermission();
-		System.out.println(currentAccountPermission);
 		return result;
 	}
 
 	public int getCurrentAccountPermission() {
-		System.out.println(currentAccountPermission);
 		return currentAccountPermission;
 	}
 }

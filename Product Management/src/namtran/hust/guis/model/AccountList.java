@@ -68,7 +68,6 @@ public class AccountList implements IAccountList {
 	}
 
 	public int getPermission() {
-		System.out.println(permission);
 		return permission;
 	}
 }
