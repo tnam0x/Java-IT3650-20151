@@ -21,7 +21,7 @@ public class ProductList implements IProductList {
 
 	public void readData(String url) {
 		if(url == null)
-			url = "product list.txt";
+			url = "src\\product list.txt";
 		try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
 			String line;
 			StringTokenizer readData;

@@ -19,7 +19,7 @@ public class AccountList implements IAccountList {
 	private int permission;
 
 	public AccountList() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("account list.txt"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("src\\account list.txt"))) {
 			String line;
 			StringTokenizer readData;
 			accountList = new ArrayList<IAccount>();

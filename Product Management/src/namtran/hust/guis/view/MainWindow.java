@@ -87,7 +87,7 @@ public class MainWindow extends JFrame implements IMainWindow {
 		itemExit.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		mnHelp.add(itemExit);
 
-		ImageIcon icon = new ImageIcon("iconOpen.png");
+		ImageIcon icon = new ImageIcon("src\\iconOpen.png");
 		JButton btnChooseDataFile = new JButton("Choose data file...", icon);
 		btnChooseDataFile.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		btnChooseDataFile.setBounds(30, 289, 164, 39);
