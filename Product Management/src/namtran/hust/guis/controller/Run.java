@@ -23,7 +23,7 @@ public class Run {
 	
 	// click sign handler
 	public void signOut() {
-		SignOutController sOC = new SignOutController();
-		sOC.signOut(signInForm, mainWindow);
+		SignOutController soc = new SignOutController();
+		soc.signOut(signInForm, mainWindow);
 	}
 }

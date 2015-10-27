@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 import namtran.hust.guis.interfaces.IAccount;
 import namtran.hust.guis.interfaces.IAccountList;
 
@@ -16,6 +18,7 @@ public class AccountList implements IAccountList {
 	private final int HAVE_ACCOUNT = 1;
 	private final int NOT_HAVE_ACCOUNT = 0;
 	private final int NO_ACCOUNT = -1;
+	private boolean accountHasExisted;
 	private int permission;
 
 	public AccountList() {
@@ -35,17 +38,17 @@ public class AccountList implements IAccountList {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	// add account
 	@Override
 	public void addAccount(IAccount account) {
-		try (PrintWriter writer = new PrintWriter(new FileWriter("account list.txt", true), true)) {
+		try (PrintWriter writer = new PrintWriter(new FileWriter("src\\account list.txt", true), true)) {
 			writer.println(account.getUserID() + " " + account.getPassword() + " " + account.getPermission());
 		} catch (Exception e) {
-			System.out.println(e);
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -55,12 +58,14 @@ public class AccountList implements IAccountList {
 		int result = NOT_HAVE_ACCOUNT;
 		if (!accountList.isEmpty())
 			for (int i = 0; i < accountList.size(); i++) {
-				if (userName.equals(accountList.get(i).getUserID()))
+				if (userName.equals(accountList.get(i).getUserID())) {
+					accountHasExisted = true;
 					if (password.equals(accountList.get(i).getPassword())) {
 						result = HAVE_ACCOUNT;
 						permission = accountList.get(i).getPermission();
 						break;
 					}
+				}
 			}
 		else
 			result = NO_ACCOUNT;
@@ -69,5 +74,9 @@ public class AccountList implements IAccountList {
 
 	public int getPermission() {
 		return permission;
+	}
+
+	public boolean isAccountHasExisted() {
+		return accountHasExisted;
 	}
 }

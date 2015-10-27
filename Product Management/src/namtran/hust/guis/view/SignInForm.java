@@ -108,12 +108,14 @@ public class SignInForm extends JFrame implements ISignInForm {
 			if (s.equals("Sign in")) {
 				// check textfield
 				if (tfUserName.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(SignInForm.this, "Username cannot be empty", "Invalid account",
+					JOptionPane.showMessageDialog(SignInForm.this, "Username cannot be empty", "Invalid",
 							JOptionPane.ERROR_MESSAGE);
+					tfUserName.requestFocus();
 					return;
 				} else if (String.valueOf(tfPassword.getPassword()).isEmpty()) {
-					JOptionPane.showMessageDialog(SignInForm.this, "Passwrod cannot be empty", "Invalid account",
+					JOptionPane.showMessageDialog(SignInForm.this, "Passwrod cannot be empty", "Invalid",
 							JOptionPane.ERROR_MESSAGE);
+					tfPassword.requestFocus();
 					return;
 				}
 				

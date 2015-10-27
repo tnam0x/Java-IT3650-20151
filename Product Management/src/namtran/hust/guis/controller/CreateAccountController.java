@@ -17,17 +17,15 @@ public class CreateAccountController {
 		accList = new AccountList();
 	}
 
-	public int checkAccount() {
-		int result = accList.check(userName, password);
-		if (result == 1)
-			;
-		else if (result == 0) {
+	public boolean checkAccount() {
+		accList.check(userName, password);
+		if (!accList.isAccountHasExisted()) {
 			updateAccount();
 			accList.addAccount(account);
 		}
-		return result;
+		return !accList.isAccountHasExisted();
 	}
-	
+
 	public void updateAccount() {
 		account = new Account();
 		account.setUserID(userName);

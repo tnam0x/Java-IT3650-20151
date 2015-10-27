@@ -103,8 +103,8 @@ public class MainWindow extends JFrame implements IMainWindow {
 		itemExit.addActionListener(new EventHandler());
 
 		// create table
-		DisplayProductController productTable = new DisplayProductController();
-		table = new JTable(productTable);
+		table = new JTable(new DisplayProductController());
+		table.setFillsViewportHeight(true);
 		table.setFont(new Font("Consolas", Font.PLAIN, 15));
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(20, 65, 524, 206);
@@ -121,7 +121,11 @@ public class MainWindow extends JFrame implements IMainWindow {
 		if (select == JFileChooser.APPROVE_OPTION) {
 			File dataFile = fileChooser.getSelectedFile();
 			url = dataFile.getAbsolutePath();
-			new DisplayProductController(url);
+			DisplayProductController productTable = new DisplayProductController(url);
+			table = new JTable(productTable);
+			productTable.fireTableDataChanged();
+//			table.validate();
+//			MainWindow.this.validate();
 		}
 	}
 
@@ -130,26 +134,31 @@ public class MainWindow extends JFrame implements IMainWindow {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
+			
 			// menu about
 			if (s.equals("About"))
 				JOptionPane.showMessageDialog(contentPane,
 						"Designed by Trần Xuân Nam\nCopyright ©2015\n(c) Copyright Eclipse contributors and others 2000, 2015.  All rights reserved.",
 						"About author", JOptionPane.INFORMATION_MESSAGE);
+			
 			// menu exit
 			else if (s.equals("Exit"))
 				System.exit(0);
+			
 			// menu choose data file...
 			else if (s.equals("Choose data file..."))
 				openFile();
+			
 			// menu sign out
 			else if (s.equals("Sign out")) {
 				Run run = new Run();
 				run.signOut();
 			}
+			
 			// menu create
 			else if (s.equals("Create new account")) {
-				SignInController sIC = new SignInController();
-				if(sIC.getCurrentAccountPermission() != 1) {
+				SignInController sic = new SignInController();
+				if(sic.getCurrentAccountPermission() != 1) {
 					JOptionPane.showMessageDialog(MainWindow.this, "You don't have permission, please login with administrator account!",
 							"Invalid", JOptionPane.ERROR_MESSAGE);
 					return;

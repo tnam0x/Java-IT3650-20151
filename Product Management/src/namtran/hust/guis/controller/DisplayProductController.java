@@ -1,6 +1,6 @@
 package namtran.hust.guis.controller;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 import namtran.hust.guis.model.ProductList;
 
@@ -49,5 +49,10 @@ public class DisplayProductController extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		return columnNames[column];
+	}
+
+	@Override
+	public void fireTableDataChanged() {
+		
 	}
 }

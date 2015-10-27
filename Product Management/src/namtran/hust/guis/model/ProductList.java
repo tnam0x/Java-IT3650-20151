@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 import namtran.hust.guis.interfaces.IProductList;
 
 public class ProductList implements IProductList {
@@ -38,7 +40,7 @@ public class ProductList implements IProductList {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

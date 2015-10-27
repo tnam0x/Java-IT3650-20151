@@ -119,35 +119,57 @@ public class CreateNewAccountForm extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			s = e.getActionCommand();
+			
 			// click create button
 			if (s.equals("Create")) {
 				String userName = tfUsername.getText();
 				String password = String.valueOf(tfPassword.getPassword());
+				
+				// check textfield
+				if(userName.isEmpty()) {
+					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Username can't be empty!",
+							"Invalid", JOptionPane.ERROR_MESSAGE);
+					tfUsername.requestFocus();
+					return;
+				}
+				else if(password.isEmpty()) {
+					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Password can't be empty!",
+							"Invalid", JOptionPane.ERROR_MESSAGE);
+					tfPassword.requestFocus();
+					return;
+				}
+				
 				// check radio button
 				if(rdYes.isSelected())
 					permission = 1;
 				else if(rdNo.isSelected())
 					permission = 0;
 				else {
-					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "you don't select administrator account!",
+					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "You don't select administrator account!",
 							"Invalid", JOptionPane.ERROR_MESSAGE);
 					return;
 					}
+				
 				// create account
-				CreateAccountController cAC = new CreateAccountController(userName, password, permission);
-				// check status
-				int check = cAC.checkAccount();
-				if (check == 0) {
-					CreateNewAccountForm.this.setVisible(false);
+				CreateAccountController cac = new CreateAccountController(userName, password, permission);
+				if (cac.checkAccount()) {
 					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Create account successfully",
 							"Infomation", JOptionPane.INFORMATION_MESSAGE);
-				} else
-					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Account has already used!",
-							"Invalid account", JOptionPane.ERROR_MESSAGE);
+					CreateNewAccountForm.this.setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Account has already existed!", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 			}
+			
 			// button cancel
-			else if (s.equals("Cancel"))
-				System.exit(0);
+			else if (s.equals("Cancel")) {
+				//System.exit(0);
+				tfUsername.setText("");
+				tfPassword.setText("");
+				CreateNewAccountForm.this.setVisible(false);
+			}
+			
 			// radio button
 			else if (s.equals("Yes"))
 				rdNo.setSelected(false);
