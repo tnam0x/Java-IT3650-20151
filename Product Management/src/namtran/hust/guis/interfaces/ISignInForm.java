@@ -4,7 +4,7 @@ public interface ISignInForm {
 	public String getUserNameOnSignInForm();
 
 	public String getPasswordOnSignInForm();
-	
-	//public void setSignInButtonActionListener(ActionListener action);
-	
+
+	// public void setSignInButtonActionListener(ActionListener action);
+
 }

@@ -7,6 +7,10 @@ import java.util.GregorianCalendar;
 import javax.swing.table.AbstractTableModel;
 
 public class TableValues extends AbstractTableModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static int FIRST_NAME = 0;
 	public final static int LAST_NAME = 1;
 	public final static int DATE_OF_BIRTH = 2;
@@ -48,8 +52,8 @@ public class TableValues extends AbstractTableModel {
 	}
 
 	@Override
-	public Class getColumnClass(int column) {
-		Class dataType = super.getColumnClass(column);
+	public Class<?> getColumnClass(int column) {
+		Class<?> dataType = super.getColumnClass(column);
 		if (column == ACCOUNT_BALANCE) {
 			dataType = Float.class;
 		}

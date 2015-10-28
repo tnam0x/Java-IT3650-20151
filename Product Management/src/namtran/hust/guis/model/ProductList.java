@@ -16,19 +16,19 @@ public class ProductList implements IProductList {
 	public ProductList() {
 		readData(null);
 	}
-	
+
 	public ProductList(String url) {
 		readData(url);
 	}
 
 	public void readData(String url) {
-		if(url == null)
+		if (url == null)
 			url = "src\\product list.txt";
 		try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
 			String line;
 			StringTokenizer readData;
 			proList = new ArrayList<Product>();
-			
+
 			while ((line = reader.readLine()) != null) {
 				readData = new StringTokenizer(line, "|");
 				while (readData.hasMoreTokens()) {
@@ -43,7 +43,7 @@ public class ProductList implements IProductList {
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	@Override
 	public ArrayList<Product> getProduct() {
 		return proList;

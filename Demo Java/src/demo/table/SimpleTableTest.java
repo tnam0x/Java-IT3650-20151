@@ -10,6 +10,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 public class SimpleTableTest extends JFrame{
+	private static final long serialVersionUID = 1L;
 	protected JTable table;
 
     public SimpleTableTest(){

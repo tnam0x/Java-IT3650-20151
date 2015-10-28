@@ -10,6 +10,7 @@ public class SignOutController {
 	public void signOut(SignInForm signInForm, MainWindow mainWindow) {
 		this.signInForm = signInForm;
 		this.mainWindow = mainWindow;
+
 		this.signInForm.setVisible(true);
 		this.mainWindow.setVisible(false);
 	}

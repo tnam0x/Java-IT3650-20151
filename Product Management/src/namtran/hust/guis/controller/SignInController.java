@@ -10,9 +10,9 @@ public class SignInController {
 	private static int currentAccountPermission;
 
 	public SignInController() {
-		
+
 	}
-	
+
 	public SignInController(String userName, String password) {
 		this.userName = userName;
 		this.password = password;

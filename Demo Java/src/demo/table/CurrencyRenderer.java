@@ -5,6 +5,11 @@ import java.text.NumberFormat;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class CurrencyRenderer extends DefaultTableCellRenderer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CurrencyRenderer(){
         super();
         setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

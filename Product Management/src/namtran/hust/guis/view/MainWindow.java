@@ -17,25 +17,32 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import namtran.hust.guis.controller.DisplayProductController;
 import namtran.hust.guis.controller.Run;
 import namtran.hust.guis.controller.SignInController;
-import namtran.hust.guis.interfaces.IMainWindow;
 
-public class MainWindow extends JFrame implements IMainWindow {
+public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private String url;
+	private static String url;
 	private JFileChooser fileChooser = new JFileChooser();
 
 	public MainWindow() {
-		setResizable(false);
+		try {
+			UIManager.setLookAndFeel(new NimbusLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			System.out.println(e.getMessage());
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(400, 200, 600, 400);
 		setTitle("Smart Store");
 		contentPane = new JPanel();
@@ -90,8 +97,8 @@ public class MainWindow extends JFrame implements IMainWindow {
 		ImageIcon icon = new ImageIcon("src\\iconOpen.png");
 		JButton btnChooseDataFile = new JButton("Choose data file...", icon);
 		btnChooseDataFile.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		btnChooseDataFile.setBounds(30, 289, 164, 39);
-		btnChooseDataFile.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
+		btnChooseDataFile.setBounds(30, 289, 175, 39);
+		// btnChooseDataFile.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		motherPanel.add(btnChooseDataFile);
 
 		// add event
@@ -103,7 +110,7 @@ public class MainWindow extends JFrame implements IMainWindow {
 		itemExit.addActionListener(new EventHandler());
 
 		// create table
-		table = new JTable(new DisplayProductController());
+		table = new JTable(new DisplayProductController(url));
 		table.setFillsViewportHeight(true);
 		table.setFont(new Font("Consolas", Font.PLAIN, 15));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -121,11 +128,9 @@ public class MainWindow extends JFrame implements IMainWindow {
 		if (select == JFileChooser.APPROVE_OPTION) {
 			File dataFile = fileChooser.getSelectedFile();
 			url = dataFile.getAbsolutePath();
-			DisplayProductController productTable = new DisplayProductController(url);
-			table = new JTable(productTable);
-			productTable.fireTableDataChanged();
-//			table.validate();
-//			MainWindow.this.validate();
+			setVisible(false);
+			Run run = new Run();
+			run.updateTable();
 		}
 	}
 
@@ -134,43 +139,38 @@ public class MainWindow extends JFrame implements IMainWindow {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
-			
+
 			// menu about
 			if (s.equals("About"))
 				JOptionPane.showMessageDialog(contentPane,
 						"Designed by Trần Xuân Nam\nCopyright ©2015\n(c) Copyright Eclipse contributors and others 2000, 2015.  All rights reserved.",
 						"About author", JOptionPane.INFORMATION_MESSAGE);
-			
+
 			// menu exit
 			else if (s.equals("Exit"))
 				System.exit(0);
-			
+
 			// menu choose data file...
 			else if (s.equals("Choose data file..."))
 				openFile();
-			
+
 			// menu sign out
 			else if (s.equals("Sign out")) {
 				Run run = new Run();
 				run.signOut();
 			}
-			
+
 			// menu create
 			else if (s.equals("Create new account")) {
 				SignInController sic = new SignInController();
-				if(sic.getCurrentAccountPermission() != 1) {
-					JOptionPane.showMessageDialog(MainWindow.this, "You don't have permission, please login with administrator account!",
-							"Invalid", JOptionPane.ERROR_MESSAGE);
+				if (sic.getCurrentAccountPermission() != 1) {
+					JOptionPane.showMessageDialog(MainWindow.this,
+							"You don't have permission, please login with administrator account!", "Invalid",
+							JOptionPane.ERROR_MESSAGE);
 					return;
-				}
-				else
-				new CreateNewAccountForm().setVisible(true);
+				} else
+					new CreateNewAccountForm().setVisible(true);
 			}
 		}
-	}
-
-	@Override
-	public Void addCreateAccountMenu() {
-		return null;
 	}
 }

@@ -11,13 +11,11 @@ public class DisplayProductController extends AbstractTableModel {
 	private final String[] columnNames = { "Product ID", "Product name", "Amount" };
 	private Object[][] data;
 
-	public DisplayProductController() {
-		proList = new ProductList();
-		readData();
-	}
-
 	public DisplayProductController(String url) {
-		proList = new ProductList(url);
+		if (url == null)
+			proList = new ProductList();
+		else
+			proList = new ProductList(url);
 		readData();
 	}
 
@@ -52,7 +50,7 @@ public class DisplayProductController extends AbstractTableModel {
 	}
 
 	@Override
-	public void fireTableDataChanged() {
-		
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		data[rowIndex][columnIndex] = aValue;
 	}
 }
