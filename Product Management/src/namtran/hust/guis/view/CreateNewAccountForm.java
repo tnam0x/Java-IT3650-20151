@@ -40,6 +40,7 @@ public class CreateNewAccountForm extends JFrame {
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		setTitle("Create new account");
 		setBounds(400, 250, 386, 247);
 		contentPane = new JPanel();
 		contentPane.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
@@ -187,7 +188,6 @@ public class CreateNewAccountForm extends JFrame {
 
 			// button cancel
 			else if (s.equals("Cancel")) {
-				// System.exit(0);
 				tfUsername.setText("");
 				tfPassword.setText("");
 				CreateNewAccountForm.this.setVisible(false);

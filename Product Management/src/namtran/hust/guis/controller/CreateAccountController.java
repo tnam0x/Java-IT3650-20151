@@ -4,7 +4,7 @@ import namtran.hust.guis.model.Account;
 import namtran.hust.guis.model.AccountList;
 
 public class CreateAccountController {
-	private AccountList accList;
+	private AccountList accountList;
 	private String userName;
 	private String password;
 	private int permission;
@@ -14,16 +14,16 @@ public class CreateAccountController {
 		this.userName = userName;
 		this.password = password;
 		this.permission = permission;
-		accList = new AccountList();
+		accountList = new AccountList();
 	}
 
 	public boolean checkAccount() {
-		accList.check(userName, password);
-		if (!accList.isAccountHasExisted()) {
+		accountList.check(userName, password);
+		if (!accountList.isAccountHasExisted()) {
 			updateAccount();
-			accList.addAccount(account);
+			accountList.addAccount(account);
 		}
-		return !accList.isAccountHasExisted();
+		return !accountList.isAccountHasExisted();
 	}
 
 	public void updateAccount() {

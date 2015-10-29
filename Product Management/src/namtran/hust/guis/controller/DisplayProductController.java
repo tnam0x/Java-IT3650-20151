@@ -1,31 +1,36 @@
 package namtran.hust.guis.controller;
 
+import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
 
+import namtran.hust.guis.model.Product;
 import namtran.hust.guis.model.ProductList;
 
 public class DisplayProductController extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private ProductList proList;
+	private ProductList productList;
 	private int NUMBERS_OF_ROW;
 	private final String[] columnNames = { "Product ID", "Product name", "Amount" };
 	private Object[][] data;
 
 	public DisplayProductController(String url) {
 		if (url == null)
-			proList = new ProductList();
+			productList = new ProductList();
 		else
-			proList = new ProductList(url);
+			productList = new ProductList(url);
 		initializeData();
 	}
 
 	public void initializeData() {
-		NUMBERS_OF_ROW = proList.getProduct().size();
+		NUMBERS_OF_ROW = productList.getProduct().size();
 		data = new Object[NUMBERS_OF_ROW][3];
+		ArrayList<Product> product = productList.getProduct();
 		for (int i = 0; i < NUMBERS_OF_ROW; i++) {
-			data[i][0] = proList.getProduct().get(i).getProductID();
-			data[i][1] = proList.getProduct().get(i).getProductName();
-			data[i][2] = proList.getProduct().get(i).getAmount();
+			Product p = product.get(i);
+			data[i][0] = p.getProductID();
+			data[i][1] = p.getProductName();
+			data[i][2] = p.getAmount();
 		}
 	}
 

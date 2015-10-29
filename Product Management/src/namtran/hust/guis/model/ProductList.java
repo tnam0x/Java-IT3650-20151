@@ -8,11 +8,11 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 public class ProductList {
-	private ArrayList<Product> proList;
+	private ArrayList<Product> productList;
 	private Product product;
 
 	public ProductList() {
-		readData(null);
+		readData("src\\product list.txt");
 	}
 
 	public ProductList(String url) {
@@ -20,12 +20,10 @@ public class ProductList {
 	}
 
 	public void readData(String url) {
-		if (url == null)
-			url = "src\\product list.txt";
 		try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
 			String line;
 			StringTokenizer readData;
-			proList = new ArrayList<Product>();
+			productList = new ArrayList<Product>();
 
 			while ((line = reader.readLine()) != null) {
 				readData = new StringTokenizer(line, "|");
@@ -34,7 +32,7 @@ public class ProductList {
 					product.setProductID(readData.nextToken());
 					product.setProductName(readData.nextToken());
 					product.setAmount(Integer.parseInt(readData.nextToken()));
-					proList.add(product);
+					productList.add(product);
 				}
 			}
 		} catch (Exception e) {
@@ -43,7 +41,7 @@ public class ProductList {
 	}
 
 	public ArrayList<Product> getProduct() {
-		return proList;
+		return productList;
 	}
 
 }
