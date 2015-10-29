@@ -23,9 +23,9 @@ public class DisplayProductController extends AbstractTableModel {
 	}
 
 	public void initializeData() {
-		NUMBERS_OF_ROW = productList.getProduct().size();
-		data = new Object[NUMBERS_OF_ROW][3];
 		ArrayList<Product> product = productList.getProduct();
+		NUMBERS_OF_ROW = product.size();
+		data = new Object[NUMBERS_OF_ROW][3];
 		for (int i = 0; i < NUMBERS_OF_ROW; i++) {
 			Product p = product.get(i);
 			data[i][0] = p.getProductID();

@@ -3,9 +3,9 @@ package namtran.hust.guis.controller;
 import namtran.hust.guis.model.AccountList;
 
 public class SignInController {
-	private String userName;
+	private static String userName;
 	private String password;
-	private AccountList accList;
+	private AccountList accountList;
 	private int result;
 	private static int currentAccountPermission;
 
@@ -13,20 +13,24 @@ public class SignInController {
 
 	}
 
-	public SignInController(String userName, String password) {
-		this.userName = userName;
+	public SignInController(String user, String password) {
+		userName = user;
 		this.password = password;
 	}
 
 	// check account and password
 	public int checkSignIn() {
-		accList = new AccountList();
-		result = accList.check(userName, password);
-		currentAccountPermission = accList.getPermission();
+		accountList = new AccountList();
+		result = accountList.check(userName, password);
+		currentAccountPermission = accountList.getPermission();
 		return result;
 	}
 
 	public int getCurrentAccountPermission() {
 		return currentAccountPermission;
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 }

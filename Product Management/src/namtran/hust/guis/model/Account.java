@@ -1,7 +1,6 @@
 package namtran.hust.guis.model;
 
-
-public class Account{
+public class Account {
 	private String userID, password;
 	private int permission;
 

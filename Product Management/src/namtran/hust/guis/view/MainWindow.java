@@ -33,9 +33,12 @@ public class MainWindow extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private static String url;
+	private String currentAccount;
+	private JMenuItem itemSignOut;
 	private JFileChooser fileChooser = new JFileChooser();
 
 	public MainWindow() {
+		currentAccount = new SignInController().getUserName();
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
@@ -74,7 +77,7 @@ public class MainWindow extends JFrame {
 		mnAccount.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(mnAccount);
 
-		JMenuItem itemSignOut = new JMenuItem("Sign out");
+		itemSignOut = new JMenuItem("Sign out [" + currentAccount + "]");
 		itemSignOut.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		mnAccount.add(itemSignOut);
 
@@ -155,7 +158,7 @@ public class MainWindow extends JFrame {
 				openFile();
 
 			// menu sign out
-			else if (s.equals("Sign out")) {
+			else if (s.contains("Sign out")) {
 				Run run = new Run();
 				run.signOutHandler();
 			}

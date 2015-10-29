@@ -1,6 +1,5 @@
 package namtran.hust.guis.model;
 
-
 public class Product {
 	private String productID, productName;
 	private int amount;

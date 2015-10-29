@@ -18,15 +18,17 @@ public class CreateAccountController {
 	}
 
 	public boolean checkAccount() {
-		accountList.check(userName, password);
-		if (!accountList.isAccountHasExisted()) {
-			updateAccount();
+		accountList.check(userName, password); // check account
+		boolean isExisted = accountList.isAccountHasExisted();
+		// if not exist, create new account
+		if (!isExisted) {
+			updateAccountInfomation();
 			accountList.addAccount(account);
 		}
-		return !accountList.isAccountHasExisted();
+		return !isExisted;
 	}
 
-	public void updateAccount() {
+	public void updateAccountInfomation() {
 		account = new Account();
 		account.setUserID(userName);
 		account.setPassword(password);

@@ -10,14 +10,12 @@ public class Run {
 	public static void main(String[] args) {
 		signInForm = new SignInForm();
 		signInForm.setVisible(true);
-
-		mainWindow = new MainWindow();
-		mainWindow.setVisible(false);
 	}
 
 	// sign in successfully
 	public void signInSuccess() {
 		signInForm.setVisible(false);
+		mainWindow = new MainWindow();
 		mainWindow.setVisible(true);
 	}
 

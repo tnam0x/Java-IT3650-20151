@@ -142,7 +142,7 @@ public class SignInForm extends JFrame {
 				int check = signIn.checkSignIn();
 				// sign in ok
 				if (check == 1) {
-					JOptionPane.showMessageDialog(SignInForm.this, "Sign in successfully", "Infomation",
+					JOptionPane.showMessageDialog(SignInForm.this, "Sign in successful", "Infomation",
 							JOptionPane.INFORMATION_MESSAGE);
 					tfUserName.setText("");
 					tfPassword.setText("");
@@ -156,7 +156,7 @@ public class SignInForm extends JFrame {
 				// no account
 				else if (check == -1)
 					JOptionPane.showMessageDialog(SignInForm.this,
-							"No any account has registered yet, please create an account!", "Error",
+							"No any account has registered yet, please contact to administrator!", "Error",
 							JOptionPane.ERROR_MESSAGE);
 			}
 			// click button cancel

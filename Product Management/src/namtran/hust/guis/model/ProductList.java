@@ -27,8 +27,10 @@ public class ProductList {
 
 			while ((line = reader.readLine()) != null) {
 				readData = new StringTokenizer(line, "|");
+
 				while (readData.hasMoreTokens()) {
 					product = new Product();
+
 					product.setProductID(readData.nextToken());
 					product.setProductName(readData.nextToken());
 					product.setAmount(Integer.parseInt(readData.nextToken()));
@@ -37,6 +39,7 @@ public class ProductList {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);
+			System.exit(-1);
 		}
 	}
 

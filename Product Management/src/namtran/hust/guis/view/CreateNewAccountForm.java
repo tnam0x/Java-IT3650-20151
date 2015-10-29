@@ -72,10 +72,10 @@ public class CreateNewAccountForm extends JFrame {
 		tfUsername.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyChar() == KeyEvent.VK_ENTER)
+				if (e.getKeyChar() == KeyEvent.VK_ENTER)
 					tfPassword.requestFocus();
 			}
-			
+
 		});
 
 		tfPassword = new JPasswordField();
@@ -155,10 +155,15 @@ public class CreateNewAccountForm extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 					tfPassword.requestFocus();
 					return;
-				}else if(userName.contains(" ")) {
+				} else if (userName.contains(" ")) {
 					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Username can't contain space!", "Invalid",
 							JOptionPane.ERROR_MESSAGE);
 					tfUsername.requestFocus();
+					return;
+				} else if (password.contains(" ")) {
+					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Password can't contain space!", "Invalid",
+							JOptionPane.ERROR_MESSAGE);
+					tfPassword.requestFocus();
 					return;
 				}
 
