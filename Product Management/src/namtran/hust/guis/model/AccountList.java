@@ -9,12 +9,9 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
-import namtran.hust.guis.interfaces.IAccount;
-import namtran.hust.guis.interfaces.IAccountList;
-
-public class AccountList implements IAccountList {
-	private ArrayList<IAccount> accountList;
-	private IAccount account;
+public class AccountList{
+	private ArrayList<Account> accountList;
+	private Account account;
 	private final int HAVE_ACCOUNT = 1;
 	private final int NOT_HAVE_ACCOUNT = 0;
 	private final int NO_ACCOUNT = -1;
@@ -25,7 +22,7 @@ public class AccountList implements IAccountList {
 		try (BufferedReader reader = new BufferedReader(new FileReader("src\\account list.txt"))) {
 			String line;
 			StringTokenizer readData;
-			accountList = new ArrayList<IAccount>();
+			accountList = new ArrayList<Account>();
 
 			while ((line = reader.readLine()) != null) {
 				readData = new StringTokenizer(line, " ");
@@ -43,8 +40,7 @@ public class AccountList implements IAccountList {
 	}
 
 	// add account
-	@Override
-	public void addAccount(IAccount account) {
+	public void addAccount(Account account) {
 		try (PrintWriter writer = new PrintWriter(new FileWriter("src\\account list.txt", true), true)) {
 			writer.println(account.getUserID() + " " + account.getPassword() + " " + account.getPermission());
 		} catch (Exception e) {
@@ -53,7 +49,6 @@ public class AccountList implements IAccountList {
 	}
 
 	// check username and password
-	@Override
 	public int check(String userName, String password) {
 		int result = NOT_HAVE_ACCOUNT;
 		if (!accountList.isEmpty())

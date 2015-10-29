@@ -7,9 +7,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
-import namtran.hust.guis.interfaces.IProductList;
-
-public class ProductList implements IProductList {
+public class ProductList {
 	private ArrayList<Product> proList;
 	private Product product;
 
@@ -44,7 +42,6 @@ public class ProductList implements IProductList {
 		}
 	}
 
-	@Override
 	public ArrayList<Product> getProduct() {
 		return proList;
 	}

@@ -59,7 +59,7 @@ public class MainWindow extends JFrame {
 
 		// create menu
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(10, 11, 534, 43);
+		menuBar.setBounds(3, 3, 558, 43);
 		motherPanel.add(menuBar);
 
 		JMenu mnProduct = new JMenu("Product");
@@ -157,7 +157,7 @@ public class MainWindow extends JFrame {
 			// menu sign out
 			else if (s.equals("Sign out")) {
 				Run run = new Run();
-				run.signOut();
+				run.signOutHandler();
 			}
 
 			// menu create

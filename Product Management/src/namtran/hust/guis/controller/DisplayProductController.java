@@ -16,10 +16,10 @@ public class DisplayProductController extends AbstractTableModel {
 			proList = new ProductList();
 		else
 			proList = new ProductList(url);
-		readData();
+		initializeData();
 	}
 
-	public void readData() {
+	public void initializeData() {
 		NUMBERS_OF_ROW = proList.getProduct().size();
 		data = new Object[NUMBERS_OF_ROW][3];
 		for (int i = 0; i < NUMBERS_OF_ROW; i++) {

@@ -21,9 +21,8 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import namtran.hust.guis.controller.Run;
 import namtran.hust.guis.controller.SignInController;
-import namtran.hust.guis.interfaces.ISignInForm;
 
-public class SignInForm extends JFrame implements ISignInForm {
+public class SignInForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfUserName;
@@ -148,7 +147,7 @@ public class SignInForm extends JFrame implements ISignInForm {
 					tfUserName.setText("");
 					tfPassword.setText("");
 					Run run = new Run();
-					run.signIn();
+					run.signInSuccess();
 				}
 				// username or password is wrong
 				else if (check == 0)
@@ -166,14 +165,12 @@ public class SignInForm extends JFrame implements ISignInForm {
 		}
 	}
 
-	@Override
 	public String getUserNameOnSignInForm() {
 		String result = tfUserName.getText();
 		tfUserName.requestFocus();
 		return result;
 	}
 
-	@Override
 	public String getPasswordOnSignInForm() {
 		String result = String.valueOf(tfPassword.getPassword());
 		return result;

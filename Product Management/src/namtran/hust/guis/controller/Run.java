@@ -16,15 +16,14 @@ public class Run {
 	}
 
 	// sign in successfully
-	public void signIn() {
+	public void signInSuccess() {
 		signInForm.setVisible(false);
 		mainWindow.setVisible(true);
 	}
 
 	// click sign handler
-	public void signOut() {
-		SignOutController soc = new SignOutController();
-		soc.signOut(signInForm, mainWindow);
+	public void signOutHandler() {
+		new SignOutController().signOut(signInForm, mainWindow);
 	}
 
 	// update table

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,6 +68,14 @@ public class CreateNewAccountForm extends JFrame {
 		tfUsername.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		tfUsername.setBounds(145, 11, 211, 26);
 		tfUsername.setColumns(10);
+		tfUsername.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyChar() == KeyEvent.VK_ENTER)
+					tfPassword.requestFocus();
+			}
+			
+		});
 
 		tfPassword = new JPasswordField();
 		tfPassword.setForeground(Color.BLACK);
@@ -77,8 +87,8 @@ public class CreateNewAccountForm extends JFrame {
 
 		// create panel contain radio button
 		JPanel panelAdm = new JPanel();
-		panelAdm.setBorder(new TitledBorder(new MatteBorder(2, 2, 2, 2, new Color(255, 0, 0)),
-				"Administrator account", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
+		panelAdm.setBorder(new TitledBorder(new MatteBorder(2, 2, 2, 2, new Color(255, 0, 0)), "Administrator account",
+				TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
 		panelAdm.setBounds(38, 95, 283, 59);
 		panelAdm.setLayout(null);
 
@@ -95,12 +105,12 @@ public class CreateNewAccountForm extends JFrame {
 		// create button
 		JButton btnCreate = new JButton("Create");
 		btnCreate.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		btnCreate.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
+		// btnCreate.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		btnCreate.setBounds(58, 165, 105, 26);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
+		// btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
 		btnCancel.setBounds(190, 165, 105, 26);
 
 		// add event
@@ -143,6 +153,11 @@ public class CreateNewAccountForm extends JFrame {
 					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Password can't be empty!", "Invalid",
 							JOptionPane.ERROR_MESSAGE);
 					tfPassword.requestFocus();
+					return;
+				}else if(userName.contains(" ")) {
+					JOptionPane.showMessageDialog(CreateNewAccountForm.this, "Username can't contain space!", "Invalid",
+							JOptionPane.ERROR_MESSAGE);
+					tfUsername.requestFocus();
 					return;
 				}
 
