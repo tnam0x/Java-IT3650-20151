@@ -1,7 +1,9 @@
 package namtran.hust.guis.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import namtran.hust.guis.model.Product;
@@ -14,11 +16,20 @@ public class DisplayProductController extends AbstractTableModel {
 	private final String[] columnNames = { "Product ID", "Product name", "Amount" };
 	private Object[][] data;
 
-	public DisplayProductController(String url) {
-		if (url == null)
-			productList = new ProductList();
-		else
-			productList = new ProductList(url);
+	public DisplayProductController() {
+		productList = new ProductList();
+		initializeData();
+	}
+
+	public DisplayProductController(String filePath) {
+		try {
+			productList = new ProductList(filePath);
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
+					e, "File error",
+					JOptionPane.ERROR_MESSAGE);
+			System.exit(-1);
+		}
 		initializeData();
 	}
 

@@ -1,8 +1,9 @@
 package namtran.hust.guis.model;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -19,7 +20,8 @@ public class AccountList {
 	private int permission;
 
 	public AccountList() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("src\\account list.txt"))) {
+		InputStream input = this.getClass().getClassLoader().getResourceAsStream("account list.txt");
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
 			String line;
 			StringTokenizer readData;
 			accountList = new ArrayList<Account>();

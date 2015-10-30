@@ -11,7 +11,7 @@ public class SignOutController {
 		this.signInForm = signInForm;
 		this.mainWindow = mainWindow;
 
-		this.signInForm.setVisible(true);
 		this.mainWindow.setVisible(false);
+		this.signInForm.setVisible(true);
 	}
 }

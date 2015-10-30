@@ -1,7 +1,10 @@
 package namtran.hust.guis.model;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -12,15 +15,17 @@ public class ProductList {
 	private Product product;
 
 	public ProductList() {
-		readData("src\\product list.txt");
+		InputStream input = this.getClass().getClassLoader().getResourceAsStream("product list.txt");
+		readData(input);
 	}
 
-	public ProductList(String url) {
-		readData(url);
+	public ProductList(String filePath) throws FileNotFoundException {
+		InputStream input = new FileInputStream(filePath);
+		readData(input);
 	}
 
-	public void readData(String url) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
+	public void readData(InputStream input) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
 			String line;
 			StringTokenizer readData;
 			productList = new ArrayList<Product>();

@@ -3,4 +3,4 @@ namtran4194 123456 1
 nam_hust 123456 1
 namtran 12345 0
 nam 1234 0
-test_create 123456 0
+test 1234 0

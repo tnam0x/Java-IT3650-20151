@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,8 +32,7 @@ import namtran.hust.guis.controller.SignInController;
 public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
-	private static String url;
+	private static String filePath;
 	private String currentAccount;
 	private JMenuItem itemSignOut;
 	private JFileChooser fileChooser = new JFileChooser();
@@ -97,7 +97,8 @@ public class MainWindow extends JFrame {
 		itemExit.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		mnHelp.add(itemExit);
 
-		ImageIcon icon = new ImageIcon("src\\iconOpen.png");
+		URL urlImage = this.getClass().getClassLoader().getResource("iconOpen.png");
+		ImageIcon icon = new ImageIcon(urlImage);
 		JButton btnChooseDataFile = new JButton("Choose data file...", icon);
 		btnChooseDataFile.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		btnChooseDataFile.setBounds(30, 289, 175, 39);
@@ -113,7 +114,12 @@ public class MainWindow extends JFrame {
 		itemExit.addActionListener(new EventHandler());
 
 		// create table
-		table = new JTable(new DisplayProductController(url));
+		JTable table;
+		if (filePath != null) {
+			table = new JTable(new DisplayProductController(filePath));
+		} else
+
+			table = new JTable(new DisplayProductController());
 		table.setFillsViewportHeight(true);
 		table.setFont(new Font("Consolas", Font.PLAIN, 15));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -130,7 +136,7 @@ public class MainWindow extends JFrame {
 		int select = fileChooser.showOpenDialog(this);
 		if (select == JFileChooser.APPROVE_OPTION) {
 			File dataFile = fileChooser.getSelectedFile();
-			url = dataFile.getAbsolutePath();
+			filePath = dataFile.getAbsolutePath();
 			setVisible(false);
 			Run run = new Run();
 			run.updateTable();

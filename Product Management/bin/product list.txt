@@ -1,14 +1,14 @@
-P1|muối|12
-P2|mắm|42
-P3|gạo|9
-P4|dầu ăn|15
-P5|giấy vệ sinh|21
-P6|dầu rửa bát|7
+﻿P1|Muoi|12
+P2|Mam|42
+P3|Gao|9
+P4|Dau an|15
+P5|GVS|21
+P6|Dau rua bat|7
 P7|BCS|96
-P8|bột canh|59
-P9|bột giặt|71
-P10|xà phòng tắm|69
-P11|kem đánh răng|32
-P12|sữa tắm|44
-P13|dầu gội đầu|89
-P14|khăn tắm|10
+P8|Bot canh|59
+P9|Bot giat|71
+P10|Xa phong tam|69
+P11|Kem danh rang|32
+P12|Sua tam|44
+P13|Dau goi dau|89
+P14|Khan tam|10
