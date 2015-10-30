@@ -21,7 +21,9 @@ public class Run {
 
 	// click sign handler
 	public void signOutHandler() {
-		new SignOutController().signOut(signInForm, mainWindow);
+		mainWindow.setVisible(false);
+		signInForm = new SignInForm();
+		signInForm.setVisible(true);
 	}
 
 	// update table
