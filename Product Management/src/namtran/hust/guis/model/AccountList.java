@@ -1,9 +1,8 @@
 package namtran.hust.guis.model;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -20,8 +19,7 @@ public class AccountList {
 	private int permission;
 
 	public AccountList() {
-		InputStream input = this.getClass().getClassLoader().getResourceAsStream("account list.txt");
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("data//account list.txt"))) {
 			String line;
 			StringTokenizer readData;
 			accountList = new ArrayList<Account>();
@@ -46,7 +44,7 @@ public class AccountList {
 
 	// add account
 	public void addAccount(Account account) {
-		try (PrintWriter writer = new PrintWriter(new FileWriter("src\\account list.txt", true), true)) {
+		try (PrintWriter writer = new PrintWriter(new FileWriter("data\\account list.txt", true), true)) {
 			writer.println(account.getUserID() + " " + account.getPassword() + " " + account.getPermission());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e, "File error", JOptionPane.ERROR_MESSAGE);

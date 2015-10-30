@@ -31,7 +31,7 @@ public class ProductList {
 			productList = new ArrayList<Product>();
 
 			while ((line = reader.readLine()) != null) {
-				readData = new StringTokenizer(line, "|");
+				readData = new StringTokenizer(line, "|ï»¿");
 
 				while (readData.hasMoreTokens()) {
 					product = new Product();
