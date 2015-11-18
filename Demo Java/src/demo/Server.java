@@ -1,36 +1,38 @@
 package demo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-	public final static int DEFAULT_PORT = 4000;
+	public final static int DEFAULT_PORT = 5000;
 
-	public static void main(String[] args) {
-		try (ServerSocket servSocket = new ServerSocket(DEFAULT_PORT)) {
-			while (true) {
-				Socket connSocket = servSocket.accept();
-				System.out.println("Accepted client: " + connSocket.getInetAddress().getHostAddress());
-				try (BufferedReader in = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
-						PrintWriter out = new PrintWriter(new OutputStreamWriter(connSocket.getOutputStream()))) {
-					String message;
-					while ((message = in.readLine()) != null) {
-						System.out.println("Receive from client: " + message);
-						out.println(message);
-						out.flush();
-					}
-					System.out.print("Client has stopped sending data!");
-				} catch (IOException e) {
-					System.out.println(e);
-				}
+	private static void communicate(Socket connSocket) {
+		try (ObjectInputStream in = new ObjectInputStream(connSocket.getInputStream())) {
+			Student student;
+			try {
+				while ((student = (Student) in.readObject()) != null)
+					System.out.println("Received: " + student.getName());
+			} catch (ClassNotFoundException e) {
+				System.out.println("Invalid data from client!");
+			} catch (IOException e) {
+				System.out.println("Client stopped sending data!");
 			}
 		} catch (IOException e) {
-			System.out.println(e);
+			System.out.println("Cannot communicate to client!");
+		}
+	}
+
+	public static void main(String[] args) {
+		try (ServerSocket lisSocket = new ServerSocket(DEFAULT_PORT)) {
+			System.out.println("Server started!");
+			while (true) {
+				Socket connSocket = lisSocket.accept();
+				communicate(connSocket);
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot start server on port 5000!");
 		}
 	}
 }

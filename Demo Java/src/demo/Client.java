@@ -3,33 +3,32 @@ package demo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Client {
 	public static void main(String[] args) {
-		try (Socket clientSocket = new Socket("localhost", 4000);
+		try (Socket clientSocket = new Socket("192.168.67.234", 5000);
 				BufferedReader user = new BufferedReader(new InputStreamReader(System.in));
-				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))) {
-			String message;
+				ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream())) {
 			while (true) {
-				System.out.print("Send to server: ");
-				message = user.readLine();
-				if (message.length() == 0) {
-					System.out.println("Stop!");
+				String id;
+				System.out.print("Student's ID: ");
+				id = user.readLine();
+				if (id.length() == 0) {
+					System.out.println("Stopped sending data to server!");
 					break;
 				}
-				out.println(message);
+				String name;
+				System.out.print("Student's name: ");
+				name = user.readLine();
+				Student student = new Student(id, name);
+				out.writeObject(student);
 				out.flush();
-				String reply;
-				reply = in.readLine();
-				System.out.println("Reply from Server: " + reply);
 			}
 			clientSocket.close();
 		} catch (IOException e) {
-			System.out.println(e);
+			System.out.println("Cannot connect to server!");
 		}
 	}
 }
