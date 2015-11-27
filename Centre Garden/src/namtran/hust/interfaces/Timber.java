@@ -38,7 +38,6 @@ public class Timber implements Sellable {
 
 	@Override
 	public double getVolume() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }
