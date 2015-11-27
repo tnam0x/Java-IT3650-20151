@@ -99,6 +99,7 @@ public class Hazchem {
 
 	}
 
+	@Override
 	public String toString() {
 		String str = "Hazchem[ code: " + hazchemCode + ", reversed: " + isColor + " ]";
 		return str;
