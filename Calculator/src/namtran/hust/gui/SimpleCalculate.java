@@ -23,8 +23,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class SimpleCalculate extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField resultJText;
 	private JPanel motherPanel;
 	private double tempNumbers1 = 0;
