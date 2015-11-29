@@ -68,6 +68,6 @@ class LowThread extends Thread {
 
 	public void run() {
 		for (int y = 1; y <= 5; y++)
-			display.append("Low Priority Thread!!!\n");
+			display.append("Low Priority Thread\n");
 	}
 }
