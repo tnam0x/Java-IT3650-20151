@@ -48,7 +48,7 @@ public class CaroFrame extends javax.swing.JFrame implements inReceiveMessage {
 	 * @param turnOnChat set some options to watcher that diferent player.
 	 * @param name The competitor's name
      */
-    public CaroFrame(String name, ListenServer listenServer, boolean isMyturn, boolean turnOnChat ){
+    public CaroFrame(String name, ListenServer listenServer, boolean isMyTurn, boolean turnOnChat ){
     	this.tenDoiThu = name;
     	this.listenServer = listenServer;
     	this.listenServer.receive = this;
@@ -66,7 +66,7 @@ public class CaroFrame extends javax.swing.JFrame implements inReceiveMessage {
 	 * @param turnOnChat :false, turn off chat
 	 * @param tenPhong Room's name
      */
-    public CaroFrame(ListenServer listenServer,String tenPhong, boolean isMyturn, boolean turnOnChat, int[][] board){
+    public CaroFrame(ListenServer listenServer,String tenPhong, boolean isMyTurn, boolean turnOnChat, int[][] board){
     	this.listenServer = listenServer;
     	this.listenServer.receive = this;
     	this.isMyTurn = isMyTurn;

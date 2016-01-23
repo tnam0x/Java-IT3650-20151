@@ -50,7 +50,7 @@ public class ListenServer extends Thread {
                 }
 
             } catch (IOException e) {
-                //System.out.println("There're some error");
+                System.out.println(e);
             } catch (ClassNotFoundException ex) {
                 
             } catch (InterruptedException e) {

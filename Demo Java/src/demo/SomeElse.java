@@ -1,5 +1,7 @@
 package demo;
 
+import java.util.StringTokenizer;
+
 public class SomeElse {
 	public static int Foo = 10;
 
@@ -18,8 +20,12 @@ public class SomeElse {
 		// (int) Float.MAX_VALUE;
 		// (int) Math.pow(2, 31) - 2; // lợi dụng tràn số
 		// -1>>>1
-		int f = (int) (Math.pow(2, 31) - 1);
-		System.out.println(f == Integer.MAX_VALUE);
-		
+//		int f = (int) (Math.pow(2, 31) - 1);
+//		System.out.println(f == Integer.MAX_VALUE);
+		StringTokenizer str = new StringTokenizer("Abc|Efg|Hik", "|");
+		String name = str.nextToken();
+		System.out.println(name);
+		if(true)
+			System.out.println(str.nextToken());
 	}
 }
