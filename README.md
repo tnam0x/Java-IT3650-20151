@@ -1,2 +1,2 @@
 # JAVA_ASSIGNMENT
-all assignment while learn java
+all assignment while studying java
